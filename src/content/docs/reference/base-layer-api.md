@@ -10,6 +10,13 @@ The base-layer API is a small HTTP service around EON SDK reads and posting.
 
 Use this reference when a service needs to post UTXO transfers with scalar `Data`, inspect wallet address and balance, or read UTXOs and transactions. Semantic-layer meaning is not interpreted here.
 
+Rendered reference and schema:
+
+- [Base-Layer rendered API reference](/api/base-layer/)
+- [Base-Layer OpenAPI JSON](/openapi/base-layer.openapi.json)
+
+Status: reference schema for local or deployed base-layer API services. No public hosted base-layer API URL is promoted yet.
+
 ## Endpoints
 
 ```text

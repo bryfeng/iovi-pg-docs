@@ -1,95 +1,37 @@
 ---
-title: API Reference
-description: A tabbed workspace for EON middleware, verifier, marketplace, base-layer, and payload references.
+title: Reference Notes
+description: Supporting reference notes for payload framing, environment variables, and legacy endpoint inventories.
 sidebar:
   order: 1
 ---
 
-import { TabItem, Tabs } from '@astrojs/starlight/components';
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
 
-Use this page when you need exact endpoint order, service boundaries, or checked-in schema locations. The reference is intentionally separate from the main learning path: start with a guide for the task flow, then use these tabs for request shape and inventory checks.
+Use the [API Hub](/api/) for public API schemas, rendered OpenAPI references, live sandbox links, and copyable first-call examples.
 
-Generated OpenAPI artifacts are checked in under:
+This section keeps lower-level reference notes that are useful after you understand the public API surface.
 
-```text
-src/content/openapi/
-```
-
-<Tabs syncKey="api-reference">
-  <TabItem label="Middleware">
-
-Use the Payment SL middleware when a wallet, operator, or agent needs to register local semantic-layer state, create payment actions, batch pending actions, or accept the latest batch into verifier state.
-
-- [Payment SL Middleware API](./payment-sl-api/)
-- [Payment SL End To End](/guides/payment-sl-end-to-end/)
-
-Canonical flow:
-
-```text
-POST /operator/init
-POST /wallets
-POST /semantic-layers
-POST /actions/mint
-POST /operator/batch
-POST /verifier/accept-latest-batch
-GET /balances/{address}
-```
-
-  </TabItem>
-  <TabItem label="Verifier">
-
-Use the Generic Verifier API when ordered base-layer data has already been observed and a semantic layer needs to replay it into accepted local state.
-
-- [Generic Verifier API](./generic-verifier-api/)
-- [Verifier Sync Guide](/guides/verifier-sync/)
-
-Verifier loop:
-
-```text
-POST /verifier/ingest-event
-GET /verifier/state
-GET /verifier/log
-```
-
-  </TabItem>
-  <TabItem label="Marketplace">
-
-Use the marketplace and bundler APIs when semantic-layer payloads need to be wrapped into bundle payloads, quoted for AMM flows, or submitted as settlement-oriented actions.
-
-- [Bundler And Marketplace API](./bundler-marketplace-api/)
-- [Marketplace AMM Bundle Guide](/guides/marketplace-amm-bundle/)
-
-Common marketplace sequence:
-
-```text
-GET /assets
-GET /pools
-GET /quotes/exact-in
-POST /swaps/exact-in
-POST /verifier/ingest-event
-```
-
-  </TabItem>
-  <TabItem label="Base Layer">
-
-Use the base-layer API and framing references when you need to understand how opaque semantic-layer bytes become scalar `Data` on a UTXO.
-
-- [Base Layer API](./base-layer-api/)
-- [Payload And Scalar Framing](./payload-scalar-framing/)
-- [Environment Variables](./env-vars/)
-
-Payload shape:
-
-```text
-application payload -> canonical bytes -> framed scalars -> UTXO Data
-```
-
-  </TabItem>
-</Tabs>
+<CardGrid>
+  <LinkCard
+    title="API Hub"
+    description="Public schemas, rendered API references, and first-call examples."
+    href="/api/"
+  />
+  <LinkCard
+    title="Payload And Scalar Framing"
+    description="How semantic-layer payload bytes are converted into scalar UTXO Data."
+    href="./payload-scalar-framing/"
+  />
+  <LinkCard
+    title="Environment Variables"
+    description="Common configuration keys across the playground services."
+    href="./env-vars/"
+  />
+</CardGrid>
 
 ## Review Notes
 
-- Prefer guide pages for task order.
-- Prefer API pages for endpoint shape and schema location.
+- Prefer [API Hub](/api/) for endpoint shape and schema location.
+- Prefer guide pages for task order and domain context.
 - Prefer verifier reads for accepted semantic-layer state.
 - Do not treat scalar encoding as proof of base-layer submission.

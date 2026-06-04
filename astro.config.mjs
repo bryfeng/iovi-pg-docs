@@ -41,9 +41,15 @@ export default defineConfig({
         },
         {
           label: 'API',
-          collapsed: true,
+          collapsed: false,
           items: [
-            { label: 'Reference Workspace', slug: 'reference' },
+            { label: 'API Hub', slug: 'api' },
+            { label: 'Payment SL Reference', link: '/api/payment-sl/' },
+            { label: 'Verifier Reference', link: '/api/generic-verifier/' },
+            { label: 'Bundler Reference', link: '/api/bundler-engine/' },
+            { label: 'Marketplace Reference', link: '/api/marketplace/' },
+            { label: 'Base-Layer Reference', link: '/api/base-layer/' },
+            { label: 'Reference Notes', slug: 'reference' },
             { label: 'Payloads And Scalars', slug: 'reference/payload-scalar-framing' },
             { label: 'Environment Variables', slug: 'reference/env-vars' }
           ]

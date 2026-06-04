@@ -49,6 +49,9 @@ The API returns `503` if no live submitter or bound base-layer account is config
 
 The base-layer API also exposes direct transfer posting with scalar data:
 
+- [Rendered Base-Layer reference](/api/base-layer/)
+- [Base-Layer OpenAPI JSON](/openapi/base-layer.openapi.json)
+
 ```http
 POST /transactions/transfer
 ```

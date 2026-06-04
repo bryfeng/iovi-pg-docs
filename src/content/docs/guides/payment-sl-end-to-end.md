@@ -7,6 +7,18 @@ sidebar:
 
 The Payment SL models a centralized-issuer payment token semantic layer.
 
+Public sandbox:
+
+```text
+https://eon-payment-sl-demo-production.up.railway.app
+```
+
+API references:
+
+- [Rendered Payment SL reference](/api/payment-sl/)
+- [Payment SL OpenAPI JSON](/openapi/payment-sl.openapi.json)
+- [EON API Hub](/api/)
+
 ## Flow
 
 1. Initialize operator state.
@@ -19,6 +31,8 @@ The Payment SL models a centralized-issuer payment token semantic layer.
 8. Read verified balances and logs.
 
 ## Endpoint Sequence
+
+Use `BASE=https://eon-payment-sl-demo-production.up.railway.app` for the public sandbox.
 
 ```text
 POST /operator/init

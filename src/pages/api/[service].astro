@@ -1,0 +1,141 @@
+---
+import { ScalarComponent } from '@scalar/astro';
+import { apiServices } from '../../data/apiServices.js';
+
+export function getStaticPaths() {
+  return apiServices.map((service) => ({
+    params: { service: service.slug },
+    props: { service }
+  }));
+}
+
+const { service } = Astro.props;
+const title = `${service.name} | EON API Reference`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={service.description} />
+    <link rel="canonical" href={`https://iovi-pg-docs.vercel.app/api/${service.slug}/`} />
+    <style>
+      :root {
+        color-scheme: dark;
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      body {
+        margin: 0;
+        background: #0b0d10;
+      }
+
+      .api-header {
+        display: grid;
+        gap: 0.75rem;
+        padding: 1rem clamp(1rem, 3vw, 2rem);
+        border-bottom: 1px solid #27313d;
+        background: #11161c;
+        color: #f8fafc;
+      }
+
+      .api-header__top {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .api-header h1 {
+        margin: 0;
+        font-size: clamp(1.2rem, 2vw, 1.55rem);
+        line-height: 1.2;
+      }
+
+      .api-header p {
+        max-width: 72rem;
+        margin: 0;
+        color: #cbd5e1;
+      }
+
+      .api-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .api-link,
+      .api-status {
+        display: inline-flex;
+        align-items: center;
+        min-height: 2rem;
+        border-radius: 999px;
+        padding: 0.35rem 0.7rem;
+        font-size: 0.875rem;
+        line-height: 1;
+        text-decoration: none;
+      }
+
+      .api-link {
+        border: 1px solid #475569;
+        color: #e2e8f0;
+      }
+
+      .api-link:hover {
+        border-color: #94a3b8;
+      }
+
+      .api-status {
+        border: 1px solid #334155;
+        background: #1e293b;
+        color: #cbd5e1;
+      }
+
+      .api-shell {
+        min-height: calc(100vh - 8.5rem);
+      }
+    </style>
+  </head>
+  <body>
+    <header class="api-header">
+      <div class="api-header__top">
+        <h1>{service.name}</h1>
+        <div class="api-links" aria-label="API reference links">
+          <span class="api-status">{service.status}</span>
+          <a class="api-link" href="/api/">API Hub</a>
+          <a class="api-link" href={service.schemaUrl}>OpenAPI JSON</a>
+          <a class="api-link" href="/">Docs Home</a>
+        </div>
+      </div>
+      <p>{service.description}</p>
+    </header>
+    <main class="api-shell">
+      <ScalarComponent
+        renderMode="client"
+        configuration={{
+          cdn: 'https://cdn.jsdelivr.net/npm/@scalar/api-reference@1.58.0',
+          url: service.schemaUrl,
+          pageTitle: title,
+          title: service.name,
+          baseServerURL: service.serviceUrl,
+          layout: 'modern',
+          theme: 'moon',
+          darkMode: true,
+          forceDarkModeState: 'dark',
+          showSidebar: true,
+          hideClientButton: false,
+          hideDownloadButton: false,
+          hideTestRequestButton: service.hideTestRequestButton,
+          documentDownloadType: 'both',
+          operationTitleSource: 'summary',
+          modelsSectionLabel: 'Schemas',
+          telemetry: false
+        }}
+      />
+    </main>
+  </body>
+</html>

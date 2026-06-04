@@ -6,11 +6,12 @@ sidebar:
   hidden: true
 ---
 
-OpenAPI artifact:
+Rendered reference and schema:
 
-```text
-eon-docs/src/content/openapi/payment-sl.openapi.json
-```
+- [Payment SL rendered API reference](/api/payment-sl/)
+- [Payment SL OpenAPI JSON](/openapi/payment-sl.openapi.json)
+- [Live Swagger](https://eon-payment-sl-demo-production.up.railway.app/docs)
+- [Live ReDoc](https://eon-payment-sl-demo-production.up.railway.app/redoc)
 
 ## When To Use This API
 
@@ -137,6 +138,12 @@ The playground default is:
 
 ```text
 https://eon-payment-sl-demo-production.up.railway.app
+```
+
+First public check:
+
+```bash
+curl https://eon-payment-sl-demo-production.up.railway.app/health
 ```
 
 ## Canonical Flow

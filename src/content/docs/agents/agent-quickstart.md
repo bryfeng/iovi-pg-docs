@@ -7,6 +7,18 @@ sidebar:
 
 Use this page when an AI agent needs to spin up a semantic layer or transact within one.
 
+API entrypoints:
+
+- [API Hub](/api/)
+- [Payment SL OpenAPI JSON](/openapi/payment-sl.openapi.json)
+- [Rendered Payment SL reference](/api/payment-sl/)
+
+Default public sandbox:
+
+```text
+https://eon-payment-sl-demo-production.up.railway.app
+```
+
 ## Safe Model
 
 ```text
@@ -17,7 +29,7 @@ Do not imply the wallet receives the posting UTXO unless the UTXO is explicitly 
 
 ## Spin Up A Payment Semantic Layer
 
-Call in order:
+Call in order against the selected `BASE` URL:
 
 ```text
 POST /operator/init
@@ -73,3 +85,4 @@ GET /verifier/log
 - Do not claim EON verifies semantic-layer validity on the base layer.
 - Do not call raw VK submission production custody.
 - Do not call devnet scalar encoding a successful base-layer write.
+- Do not invent hosted URLs for verifier, bundler, marketplace, or base-layer services. Use their published schemas unless a deployment URL is supplied.

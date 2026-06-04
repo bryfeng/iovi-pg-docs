@@ -1,0 +1,108 @@
+---
+title: API Hub
+description: External-facing entrypoint for EON API schemas, live sandbox links, and rendered OpenAPI references.
+sidebar:
+  order: 1
+---
+
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+Use this page when you want to call an EON service from the outside. The fastest public path today is the Payment SL sandbox. Other service schemas are published for local deployment and integration planning until hosted URLs are promoted.
+
+## Try The Public Sandbox
+
+Base URL:
+
+```text
+https://eon-payment-sl-demo-production.up.railway.app
+```
+
+First check:
+
+```bash
+curl https://eon-payment-sl-demo-production.up.railway.app/health
+```
+
+Live references:
+
+- [Rendered Payment SL reference](/api/payment-sl/)
+- [Payment SL Swagger](https://eon-payment-sl-demo-production.up.railway.app/docs)
+- [Payment SL ReDoc](https://eon-payment-sl-demo-production.up.railway.app/redoc)
+- [Payment SL OpenAPI JSON](/openapi/payment-sl.openapi.json)
+
+## Service Status
+
+| Service | Status | Base URL | Schema | Full Reference |
+| --- | --- | --- | --- | --- |
+| Payment SL Sandbox | Public sandbox | `https://eon-payment-sl-demo-production.up.railway.app` | [JSON](/openapi/payment-sl.openapi.json) | [Open](/api/payment-sl/) |
+| Generic Verifier | Reference / deploy locally | `http://localhost:8000` | [JSON](/openapi/generic-verifier.openapi.json) | [Open](/api/generic-verifier/) |
+| Bundler Engine | Reference / deploy locally | `http://localhost:8000` | [JSON](/openapi/bundler-engine.openapi.json) | [Open](/api/bundler-engine/) |
+| Marketplace Bundler | Reference / deploy locally | `http://localhost:8000` | [JSON](/openapi/marketplace-bundler.openapi.json) | [Open](/api/marketplace/) |
+| Base-Layer API | Reference / deploy locally | `http://localhost:8000` | [JSON](/openapi/base-layer.openapi.json) | [Open](/api/base-layer/) |
+
+## First Payment Flow
+
+The public sandbox is stateful, so treat it as a shared demo service. Use these requests as the minimal integration shape, then switch to the rendered reference for exact request and response schemas.
+
+```bash
+BASE=https://eon-payment-sl-demo-production.up.railway.app
+
+curl "$BASE/health"
+
+curl -X POST "$BASE/operator/init" \
+  -H "Content-Type: application/json" \
+  -d '{"issuer_vk":"circle_inc_verification_key","reset_existing":false}'
+
+curl -X POST "$BASE/wallets" \
+  -H "Content-Type: application/json" \
+  -d '{"label":"Alice","vk":"alice_vk","kind":"user"}'
+```
+
+Continue with:
+
+```text
+POST /actions/mint
+POST /operator/batch
+POST /verifier/accept-latest-batch
+GET /balances/{address}
+```
+
+Verifier reads are the accepted state surface. Operator state is useful for batching and debugging, but it is not final wallet state.
+
+## Reference Pages
+
+<CardGrid>
+  <LinkCard
+    title="Payment SL Sandbox"
+    description="Wallets, actions, operator batches, devnet boundaries, and verifier reads."
+    href="/api/payment-sl/"
+  />
+  <LinkCard
+    title="Generic Verifier"
+    description="Event ingestion and accepted semantic-layer state reads."
+    href="/api/generic-verifier/"
+  />
+  <LinkCard
+    title="Bundler Engine"
+    description="Bundle wrapper payloads for child semantic-layer payloads."
+    href="/api/bundler-engine/"
+  />
+  <LinkCard
+    title="Marketplace Bundler"
+    description="AMM quote, liquidity, approval, swap, and settlement payload APIs."
+    href="/api/marketplace/"
+  />
+  <LinkCard
+    title="Base-Layer API"
+    description="Wallet, balance, UTXO, transaction, and transfer-with-Data endpoints."
+    href="/api/base-layer/"
+  />
+</CardGrid>
+
+## Trust And Auth Notes
+
+- The Payment SL URL is a sandbox, not a production custody service.
+- Current playground requests may submit raw VK-like values; production flows should use signed intents or stronger auth.
+- Scalar encoding means payload bytes can be represented as UTXO `Data`; it is not proof of base-layer inclusion.
+- Bundles transport and order child payloads; child semantic layers still own validity.
+- Base-layer APIs do not interpret semantic-layer meaning.

@@ -6,18 +6,20 @@ sidebar:
   hidden: true
 ---
 
-OpenAPI artifacts:
+Rendered references and schemas:
 
-```text
-eon-docs/src/content/openapi/bundler-engine.openapi.json
-eon-docs/src/content/openapi/marketplace-bundler.openapi.json
-```
+- [Bundler Engine rendered API reference](/api/bundler-engine/)
+- [Bundler Engine OpenAPI JSON](/openapi/bundler-engine.openapi.json)
+- [Marketplace rendered API reference](/api/marketplace/)
+- [Marketplace OpenAPI JSON](/openapi/marketplace-bundler.openapi.json)
 
 ## When To Use These APIs
 
 Use the generic bundler engine to wrap child semantic-layer payloads into a parent bundle payload. Use the marketplace extensions for AMM-style quote, liquidity, approval, swap, and settlement flows.
 
 Trust boundary: bundles preserve transport and settlement ordering, but each child semantic layer still owns validity and replay semantics.
+
+Status: reference schemas for local or deployed marketplace services. No public hosted marketplace URL is promoted yet.
 
 ## Generic Bundler Engine
 

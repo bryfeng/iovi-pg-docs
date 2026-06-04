@@ -21,7 +21,7 @@ The short version:
 - [Mental Model](concepts/mental-model/) for the architecture and trust boundary.
 - [Payment SL End To End](guides/payment-sl-end-to-end/) for the current middleware flow.
 - [Agent Quickstart](agents/agent-quickstart/) for AI agents that need to spin up or transact inside a semantic layer.
-- Need exact endpoints? Use the separate [API Reference workspace](reference/) after the conceptual or guide flow is clear.
+- Need exact endpoints or schemas? Start with the external-facing [API Hub](/api/).
 
 ## Current Docs Boundary
 

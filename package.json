@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
@@ -12,8 +15,8 @@
   "dependencies": {
     "@astrojs/check": "^0.9.4",
     "@astrojs/starlight": "^0.36.0",
+    "@scalar/astro": "^0.3.0",
     "astro": "^5.13.0",
     "typescript": "^5.8.3"
-  },
-  "devDependencies": {}
+  }
 }

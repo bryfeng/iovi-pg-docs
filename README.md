@@ -25,10 +25,27 @@ npm run check            # regenerate OpenAPI, type-check, build, and link-check
 npm run generate:openapi # write checked-in OpenAPI artifacts
 ```
 
-Generated schemas live in:
+Generated source schemas live in:
 
 ```text
 src/content/openapi/
+```
+
+Public schema assets are served from:
+
+```text
+public/openapi/
+```
+
+Rendered API references live at:
+
+```text
+/api/
+/api/payment-sl/
+/api/generic-verifier/
+/api/bundler-engine/
+/api/marketplace/
+/api/base-layer/
 ```
 
 The public agent entrypoint is:

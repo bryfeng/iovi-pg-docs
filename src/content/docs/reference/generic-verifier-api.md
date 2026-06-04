@@ -6,17 +6,18 @@ sidebar:
   hidden: true
 ---
 
-OpenAPI artifact:
+Rendered reference and schema:
 
-```text
-eon-docs/src/content/openapi/generic-verifier.openapi.json
-```
+- [Generic Verifier rendered API reference](/api/generic-verifier/)
+- [Generic Verifier OpenAPI JSON](/openapi/generic-verifier.openapi.json)
 
 ## When To Use This API
 
 Use this API when a semantic layer needs to ingest ordered UTXO data and replay it through local validity rules. The verifier is the service that turns observed base-layer data into accepted semantic-layer state.
 
 Acceptance rule: read `/verifier/state` or `/verifier/log` after ingesting events; do not treat operator state or scalar encoding as final.
+
+Status: reference schema for local or deployed verifier services. No public hosted verifier URL is promoted yet.
 
 ## Endpoints
 

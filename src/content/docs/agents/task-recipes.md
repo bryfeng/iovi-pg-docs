@@ -7,6 +7,14 @@ sidebar:
 
 ## Create A Wallet Registry Entry
 
+Default public sandbox:
+
+```text
+https://eon-payment-sl-demo-production.up.railway.app
+```
+
+Exact schemas live in the [API Hub](/api/) and [Payment SL reference](/api/payment-sl/).
+
 ```http
 POST /wallets
 ```

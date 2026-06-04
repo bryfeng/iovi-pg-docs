@@ -4,7 +4,10 @@ import { dirname, extname, join, normalize, resolve } from 'node:path';
 const root = resolve(import.meta.dirname, '..');
 const docsRoot = join(root, 'src', 'content', 'docs');
 const openApiRoot = join(root, 'src', 'content', 'openapi');
+const publicOpenApiRoot = join(root, 'public', 'openapi');
+const distRoot = join(root, 'dist');
 const requiredSchemas = [
+  'base-layer.openapi.json',
   'payment-sl.openapi.json',
   'generic-verifier.openapi.json',
   'bundler-engine.openapi.json',
@@ -14,15 +17,38 @@ const requiredSchemas = [
 const failures = [];
 
 for (const schema of requiredSchemas) {
-  const path = join(openApiRoot, schema);
-  if (!existsSync(path)) {
-    failures.push(`missing OpenAPI artifact: ${schema}`);
+  const sourcePath = join(openApiRoot, schema);
+  const publicPath = join(publicOpenApiRoot, schema);
+  if (!existsSync(sourcePath)) {
+    failures.push(`missing source OpenAPI artifact: ${schema}`);
     continue;
   }
+  if (!existsSync(publicPath)) {
+    failures.push(`missing public OpenAPI artifact: ${schema}`);
+  } else if (readFileSync(sourcePath, 'utf8') !== readFileSync(publicPath, 'utf8')) {
+    failures.push(`public OpenAPI artifact does not match source artifact: ${schema}`);
+  }
 
-  const parsed = JSON.parse(readFileSync(path, 'utf8'));
+  const parsed = JSON.parse(readFileSync(sourcePath, 'utf8'));
   if (!parsed.openapi || !parsed.paths || Object.keys(parsed.paths).length === 0) {
     failures.push(`invalid OpenAPI artifact: ${schema}`);
+  }
+  if (!parsed.servers || parsed.servers.length === 0) {
+    failures.push(`OpenAPI artifact has no servers: ${schema}`);
+  }
+
+  for (const [route, methods] of Object.entries(parsed.paths ?? {})) {
+    for (const [method, operation] of Object.entries(methods)) {
+      if (!operation.description) {
+        failures.push(`${schema} ${method.toUpperCase()} ${route} missing description`);
+      }
+      if (operation.requestBody && !JSON.stringify(operation.requestBody).includes('"example"')) {
+        failures.push(`${schema} ${method.toUpperCase()} ${route} missing request example`);
+      }
+      if (!JSON.stringify(operation.responses ?? {}).includes('"example"')) {
+        failures.push(`${schema} ${method.toUpperCase()} ${route} missing response example`);
+      }
+    }
   }
 }
 
@@ -31,7 +57,12 @@ for (const file of walk(docsRoot)) {
   const source = readFileSync(file, 'utf8');
   for (const link of markdownLinks(source)) {
     if (isExternal(link) || link.startsWith('#') || link.startsWith('mailto:')) continue;
-    if (link.startsWith('/')) continue;
+    if (link.startsWith('/')) {
+      if (!distTargetExists(link)) {
+        failures.push(`${relative(file)} links to missing built target: ${link}`);
+      }
+      continue;
+    }
     const target = stripHashAndQuery(link);
     if (!target || target.startsWith('api-reference:')) continue;
 
@@ -84,4 +115,18 @@ function isExternal(value) {
 
 function relative(path) {
   return normalize(path).replace(`${normalize(root)}/`, '');
+}
+
+function distTargetExists(link) {
+  const target = stripHashAndQuery(link);
+  if (!target || target === '/') return existsSync(join(distRoot, 'index.html'));
+
+  const clean = target.replace(/^\/+/, '');
+  const resolved = resolve(distRoot, clean);
+  const candidates = [
+    resolved,
+    `${resolved}.html`,
+    join(resolved, 'index.html')
+  ];
+  return candidates.some((candidate) => existsSync(candidate));
 }

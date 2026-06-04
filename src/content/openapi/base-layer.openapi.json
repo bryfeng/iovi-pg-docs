@@ -1,0 +1,306 @@
+{
+  "components": {
+    "schemas": {
+      "TransferWithDataRequest": {
+        "properties": {
+          "amount": {
+            "minimum": 1,
+            "type": "integer"
+          },
+          "data": {
+            "description": "Scalar values to carry as UTXO Data.",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "type": "array"
+          },
+          "fee": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "recipient": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "recipient",
+          "amount",
+          "fee",
+          "data"
+        ],
+        "type": "object"
+      }
+    },
+    "securitySchemes": {
+      "PosterApiKey": {
+        "description": "Required for write routes when POSTER_API_KEY is configured. Authorization: Bearer is also accepted by the service.",
+        "in": "header",
+        "name": "x-api-key",
+        "type": "apiKey"
+      }
+    }
+  },
+  "info": {
+    "description": "HTTP posting and read API around EON SDK wallet, UTXO, transaction, and transfer-with-Data flows. Semantic-layer meaning is not interpreted by this service.",
+    "title": "EON Base-Layer API",
+    "version": "0.1.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/balance": {
+      "get": {
+        "description": "Read from the base layer surface. Use these responses for status checks, discovery, or accepted-state reads.",
+        "parameters": [
+          {
+            "example": "0xoperator",
+            "in": "query",
+            "name": "owner",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "balance": "1000000",
+                  "owner": "0xoperator"
+                },
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful response."
+          }
+        },
+        "summary": "Balance",
+        "tags": [
+          "Base Layer"
+        ]
+      }
+    },
+    "/health": {
+      "get": {
+        "description": "Read from the health surface. Use these responses for status checks, discovery, or accepted-state reads.",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "ok": true
+                },
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful response."
+          }
+        },
+        "summary": "Health",
+        "tags": [
+          "Health"
+        ]
+      }
+    },
+    "/transactions/transfer": {
+      "post": {
+        "description": "Read or post base-layer wallet, UTXO, transaction, or transfer data. This service does not validate semantic-layer meaning.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "amount": 100,
+                "data": [
+                  12345,
+                  "0x00003039"
+                ],
+                "fee": 1,
+                "recipient": "0xrecipient"
+              },
+              "schema": {
+                "$ref": "#/components/schemas/TransferWithDataRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "hash": "0xabc123",
+                  "submitted": true
+                },
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful response."
+          },
+          "401": {
+            "description": "Missing or invalid API key when POSTER_API_KEY is configured."
+          }
+        },
+        "security": [
+          {
+            "PosterApiKey": []
+          }
+        ],
+        "summary": "Transfer With Data",
+        "tags": [
+          "Base Layer"
+        ]
+      }
+    },
+    "/transactions/{hash}": {
+      "get": {
+        "description": "Read from the base layer surface. Use these responses for status checks, discovery, or accepted-state reads.",
+        "parameters": [
+          {
+            "example": "0xabc123",
+            "in": "path",
+            "name": "hash",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "hash": "0xabc123",
+                  "status": "accepted"
+                },
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful response."
+          }
+        },
+        "summary": "Transaction",
+        "tags": [
+          "Base Layer"
+        ]
+      }
+    },
+    "/utxos": {
+      "get": {
+        "description": "Read from the base layer surface. Use these responses for status checks, discovery, or accepted-state reads.",
+        "parameters": [
+          {
+            "example": "0xoperator",
+            "in": "query",
+            "name": "owner",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": 10,
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 10,
+              "minimum": 1,
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "items": [
+                    {
+                      "amount": "100",
+                      "data": [
+                        "0x00003039"
+                      ],
+                      "utxo_id": "0xabc123:0"
+                    }
+                  ]
+                },
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful response."
+          }
+        },
+        "summary": "UTXOs",
+        "tags": [
+          "Base Layer"
+        ]
+      }
+    },
+    "/wallet/address": {
+      "get": {
+        "description": "Read from the base layer surface. Use these responses for status checks, discovery, or accepted-state reads.",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "address": "0xoperator"
+                },
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful response."
+          }
+        },
+        "summary": "Wallet Address",
+        "tags": [
+          "Base Layer"
+        ]
+      }
+    }
+  },
+  "servers": [
+    {
+      "description": "Local base-layer API",
+      "url": "http://localhost:8000"
+    }
+  ],
+  "tags": [
+    {
+      "description": "Liveness, readiness, and service configuration checks.",
+      "name": "Health"
+    },
+    {
+      "description": "Base-layer wallet, balance, UTXO, transaction, and transfer posting endpoints.",
+      "name": "Base Layer"
+    }
+  ]
+}
