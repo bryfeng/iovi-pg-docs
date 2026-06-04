@@ -1,0 +1,34 @@
+# EON Docs
+
+Use these docs to operate the current EON semantic-layer playground and middleware APIs.
+
+Core rule: canonicity is shared, validity is sovereign. EON base-layer UTXOs order and store opaque scalar Data. Semantic layers define and verify their own state transitions.
+
+Safe wording: operator posts UTXO, wallet owns semantic state.
+
+Primary task pages:
+- /agents/agent-quickstart/
+- /agents/task-recipes/
+- /concepts/mental-model/
+- /concepts/utxo-data-bus/
+- /guides/payment-sl-end-to-end/
+- /guides/verifier-sync/
+- /reference/payment-sl-api/
+- /reference/generic-verifier-api/
+- /reference/bundler-marketplace-api/
+
+Canonical Payment SL flow:
+POST /operator/init
+POST /wallets
+POST /semantic-layers
+POST /actions/mint
+POST /operator/batch
+POST /verifier/accept-latest-batch
+GET /balances/{address}
+POST /actions/transfer
+POST /operator/batch
+POST /verifier/accept-latest-batch
+GET /verifier/state
+GET /verifier/log
+
+Do not treat operator state as final. Prefer verifier reads for accepted wallet state.

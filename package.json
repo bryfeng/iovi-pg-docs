@@ -1,0 +1,19 @@
+{
+  "name": "eon-docs",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "check": "npm run generate:openapi && astro check && npm run build && node scripts/check-docs.mjs",
+    "generate:openapi": "uv run --python 3.13 --with 'fastapi>=0.115,<1' --with 'pydantic>=2,<3' --with 'cryptography>=43,<49' scripts/generate_openapi.py"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/starlight": "^0.36.0",
+    "astro": "^5.13.0",
+    "typescript": "^5.8.3"
+  },
+  "devDependencies": {}
+}
