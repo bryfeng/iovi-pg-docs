@@ -2,10 +2,13 @@
 title: Base Layer API
 description: Endpoint inventory for the base-layer posting and read service.
 sidebar:
-  order: 4
+  order: 5
+  hidden: true
 ---
 
 The base-layer API is a small HTTP service around EON SDK reads and posting.
+
+Use this reference when a service needs to post UTXO transfers with scalar `Data`, inspect wallet address and balance, or read UTXOs and transactions. Semantic-layer meaning is not interpreted here.
 
 ## Endpoints
 

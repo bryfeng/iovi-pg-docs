@@ -2,7 +2,8 @@
 title: Generic Verifier API
 description: Endpoint inventory for verifier ingestion and read APIs.
 sidebar:
-  order: 2
+  order: 3
+  hidden: true
 ---
 
 OpenAPI artifact:
@@ -10,6 +11,12 @@ OpenAPI artifact:
 ```text
 eon-docs/src/content/openapi/generic-verifier.openapi.json
 ```
+
+## When To Use This API
+
+Use this API when a semantic layer needs to ingest ordered UTXO data and replay it through local validity rules. The verifier is the service that turns observed base-layer data into accepted semantic-layer state.
+
+Acceptance rule: read `/verifier/state` or `/verifier/log` after ingesting events; do not treat operator state or scalar encoding as final.
 
 ## Endpoints
 

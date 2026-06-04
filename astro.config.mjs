@@ -2,6 +2,7 @@ import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 
 export default defineConfig({
+  site: 'https://iovi-pg-docs.vercel.app',
   integrations: [
     starlight({
       title: 'EON Docs',
@@ -35,13 +36,18 @@ export default defineConfig({
           autogenerate: { directory: 'guides' }
         },
         {
-          label: 'API Reference',
-          autogenerate: { directory: 'reference' }
-        },
-        {
           label: 'Agents',
           autogenerate: { directory: 'agents' }
-        }
+        },
+        {
+          label: 'API',
+          collapsed: true,
+          items: [
+            { label: 'Reference Workspace', slug: 'reference' },
+            { label: 'Payloads And Scalars', slug: 'reference/payload-scalar-framing' },
+            { label: 'Environment Variables', slug: 'reference/env-vars' }
+          ]
+        },
       ]
     })
   ]

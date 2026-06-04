@@ -13,6 +13,7 @@ Primary task pages:
 - /concepts/utxo-data-bus/
 - /guides/payment-sl-end-to-end/
 - /guides/verifier-sync/
+- /reference/
 - /reference/payment-sl-api/
 - /reference/generic-verifier-api/
 - /reference/bundler-marketplace-api/

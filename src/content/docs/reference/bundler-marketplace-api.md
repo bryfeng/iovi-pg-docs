@@ -2,7 +2,8 @@
 title: Bundler And Marketplace API
 description: Endpoint inventory for bundle wrapping and marketplace AMM flows.
 sidebar:
-  order: 3
+  order: 4
+  hidden: true
 ---
 
 OpenAPI artifacts:
@@ -11,6 +12,12 @@ OpenAPI artifacts:
 eon-docs/src/content/openapi/bundler-engine.openapi.json
 eon-docs/src/content/openapi/marketplace-bundler.openapi.json
 ```
+
+## When To Use These APIs
+
+Use the generic bundler engine to wrap child semantic-layer payloads into a parent bundle payload. Use the marketplace extensions for AMM-style quote, liquidity, approval, swap, and settlement flows.
+
+Trust boundary: bundles preserve transport and settlement ordering, but each child semantic layer still owns validity and replay semantics.
 
 ## Generic Bundler Engine
 
