@@ -1,5 +1,6 @@
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { dirname, extname, join, normalize, resolve } from 'node:path';
+import { apiServices } from '../src/data/apiServices.js';
 
 const root = resolve(import.meta.dirname, '..');
 const docsRoot = join(root, 'src', 'content', 'docs');
@@ -13,7 +14,17 @@ const requiredSchemas = [
   'bundler-engine.openapi.json',
   'marketplace-bundler.openapi.json'
 ];
-const forbiddenPublicApiPatterns = [/localhost/i, /127\.0\.0\.1/i, /Reference \/ deploy locally/i];
+const forbiddenPublicApiPatterns = [
+  /localhost/i,
+  /127\.0\.0\.1/i,
+  /Reference \/ deploy locally/i,
+  /No public endpoint yet/i,
+  /Schema only/i,
+  /https:\/\/your-[a-z-]+\.example\.com/i
+];
+const expectedServers = Object.fromEntries(
+  apiServices.map((service) => [`${service.slug === 'marketplace' ? 'marketplace-bundler' : service.slug}.openapi.json`, service.serviceUrl])
+);
 
 const failures = [];
 
@@ -43,6 +54,11 @@ for (const schema of requiredSchemas) {
   }
   if (!parsed.servers || parsed.servers.length === 0) {
     failures.push(`OpenAPI artifact has no servers: ${schema}`);
+  } else {
+    const serverUrls = parsed.servers.map((server) => server.url);
+    if (expectedServers[schema] && !serverUrls.includes(expectedServers[schema])) {
+      failures.push(`OpenAPI artifact ${schema} missing expected public server: ${expectedServers[schema]}`);
+    }
   }
 
   for (const [route, methods] of Object.entries(parsed.paths ?? {})) {
@@ -57,6 +73,15 @@ for (const schema of requiredSchemas) {
         failures.push(`${schema} ${method.toUpperCase()} ${route} missing response example`);
       }
     }
+  }
+}
+
+for (const service of apiServices) {
+  if (!service.serviceUrl) {
+    failures.push(`API service has no public serviceUrl: ${service.slug}`);
+  }
+  if (/Schema only|No public endpoint/i.test(`${service.status} ${service.endpointLabel}`)) {
+    failures.push(`API service still has stale public status text: ${service.slug}`);
   }
 }
 

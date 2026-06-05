@@ -10,7 +10,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "check": "npm run generate:openapi && astro check && npm run build && node scripts/check-docs.mjs",
-    "generate:openapi": "uv run --python 3.13 --with 'fastapi>=0.115,<1' --with 'pydantic>=2,<3' --with 'cryptography>=43,<49' scripts/generate_openapi.py"
+    "generate:openapi": "uv run --python 3.13 --with 'fastapi>=0.115,<1' --with 'pydantic>=2,<3' --with 'cryptography>=43,<49' scripts/generate_openapi.py",
+    "smoke:public": "node scripts/smoke-public-apis.mjs"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",

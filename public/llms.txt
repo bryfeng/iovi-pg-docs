@@ -1,6 +1,6 @@
-# EON Docs
+# IOVI Docs
 
-Use these docs to operate the current EON semantic-layer playground and middleware APIs.
+Use these docs to operate the current IOVI semantic-layer playground and middleware APIs.
 
 Core rule: canonicity is shared, validity is sovereign. EON base-layer UTXOs order and store opaque scalar Data. Semantic layers define and verify their own state transitions.
 
@@ -21,8 +21,11 @@ Primary task pages:
 - /openapi/marketplace-bundler.openapi.json
 - /openapi/base-layer.openapi.json
 
-Default public sandbox:
-https://eon-payment-sl-demo-production.up.railway.app
+Default public services:
+PAYMENT_SL=https://eon-payment-sl-demo-production.up.railway.app
+VERIFIER=https://verifier-production-7dc3.up.railway.app
+BUNDLER_MARKETPLACE=https://bundler-production-b637.up.railway.app
+BASE_LAYER=https://iovi-api-production.up.railway.app
 
 Canonical Payment SL flow:
 POST /operator/init
@@ -39,4 +42,4 @@ GET /verifier/state
 GET /verifier/log
 
 Do not treat operator state as final. Prefer verifier reads for accepted wallet state.
-Do not invent hosted URLs for verifier, bundler, marketplace, or base-layer services; use the published schemas unless a deployment URL is supplied.
+Do not invent hosted URLs. Use the public URLs above unless the user supplies their own deployment.

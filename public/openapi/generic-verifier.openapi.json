@@ -162,8 +162,8 @@
     }
   },
   "info": {
-    "description": "Verifier API for ingesting ordered base-layer events and replaying semantic-layer rules into accepted local state. This schema is reference-first; deploy or run the verifier stack for a service URL.",
-    "title": "EON Generic Verifier API",
+    "description": "Public verifier API for ingesting ordered base-layer events and replaying semantic-layer rules into accepted local state.",
+    "title": "IOVI Generic Verifier API",
     "version": "0.1.0"
   },
   "openapi": "3.1.0",
@@ -414,8 +414,8 @@
   },
   "servers": [
     {
-      "description": "Your deployed verifier service. No public hosted verifier endpoint is promoted yet.",
-      "url": "https://your-verifier.example.com"
+      "description": "Public Generic Verifier service",
+      "url": "https://verifier-production-7dc3.up.railway.app"
     }
   ],
   "tags": [

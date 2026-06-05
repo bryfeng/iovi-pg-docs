@@ -1,17 +1,17 @@
 ---
 title: API Hub
-description: External-facing entrypoint for EON API schemas, live sandbox links, and rendered OpenAPI references.
+description: External-facing entrypoint for IOVI API schemas, live service links, and rendered OpenAPI references.
 sidebar:
   order: 1
 ---
 
 import { CardGrid, LinkCard } from '@astrojs/starlight/components';
 
-Use this page when you want to call an EON service from the outside. The fastest public path today is the Payment SL sandbox. Other service schemas are published for self-hosted deployments and integration planning until public endpoints are promoted.
+Use this page when you want to call an IOVI service from the outside. The current GTM surface is public and split across four live services: Payment SL, Generic Verifier, Bundler/Marketplace, and Base-Layer API.
 
-## Try The Public Sandbox
+## Try The Public Services
 
-Base URL:
+Primary Payment SL sandbox:
 
 ```text
 https://eon-payment-sl-demo-production.up.railway.app
@@ -29,18 +29,22 @@ Live references:
 - [Payment SL Swagger](https://eon-payment-sl-demo-production.up.railway.app/docs)
 - [Payment SL ReDoc](https://eon-payment-sl-demo-production.up.railway.app/redoc)
 - [Payment SL OpenAPI JSON](/openapi/payment-sl.openapi.json)
+- [Generic Verifier Swagger](https://verifier-production-7dc3.up.railway.app/docs)
+- [Bundler/Marketplace Swagger](https://bundler-production-b637.up.railway.app/docs)
+
+The base-layer service is public, but it does not expose live Swagger or `/openapi.json` today. Use the checked-in [Base-Layer OpenAPI JSON](/openapi/base-layer.openapi.json) and rendered [Base-Layer reference](/api/base-layer/).
 
 ## Service Status
 
 | Service | Status | Endpoint | Schema | Full Reference |
 | --- | --- | --- | --- | --- |
 | Payment SL Sandbox | Public sandbox | `https://eon-payment-sl-demo-production.up.railway.app` | [JSON](/openapi/payment-sl.openapi.json) | [Open](/api/payment-sl/) |
-| Generic Verifier | Schema only | No public endpoint yet | [JSON](/openapi/generic-verifier.openapi.json) | [Open](/api/generic-verifier/) |
-| Bundler Engine | Schema only | No public endpoint yet | [JSON](/openapi/bundler-engine.openapi.json) | [Open](/api/bundler-engine/) |
-| Marketplace Bundler | Schema only | No public endpoint yet | [JSON](/openapi/marketplace-bundler.openapi.json) | [Open](/api/marketplace/) |
-| Base-Layer API | Schema only | No public endpoint yet | [JSON](/openapi/base-layer.openapi.json) | [Open](/api/base-layer/) |
+| Generic Verifier | Public verifier | `https://verifier-production-7dc3.up.railway.app` | [JSON](/openapi/generic-verifier.openapi.json) | [Open](/api/generic-verifier/) |
+| Bundler Engine | Public sandbox | `https://bundler-production-b637.up.railway.app` | [JSON](/openapi/bundler-engine.openapi.json) | [Open](/api/bundler-engine/) |
+| Marketplace Bundler | Public sandbox | `https://bundler-production-b637.up.railway.app` | [JSON](/openapi/marketplace-bundler.openapi.json) | [Open](/api/marketplace/) |
+| Base-Layer API | Public base-layer API | `https://iovi-api-production.up.railway.app` | [JSON](/openapi/base-layer.openapi.json) | [Open](/api/base-layer/) |
 
-For schema-only services, import the OpenAPI document into your deployment tooling and set the server URL to your own hosted service. Do not treat the docs site itself as the API host.
+The docs site is not the API host. Use the endpoint in the table as the base URL, then use the rendered references for exact request and response shapes.
 
 ## First Payment Flow
 
@@ -104,6 +108,7 @@ Verifier reads are the accepted state surface. Operator state is useful for batc
 ## Trust And Auth Notes
 
 - The Payment SL URL is a sandbox, not a production custody service.
+- Public read endpoints are intended for GTM demos and integration discovery; write endpoints may mutate shared sandbox state or require an API key.
 - Current playground requests may submit raw VK-like values; production flows should use signed intents or stronger auth.
 - Scalar encoding means payload bytes can be represented as UTXO `Data`; it is not proof of base-layer inclusion.
 - Bundles transport and order child payloads; child semantic layers still own validity.

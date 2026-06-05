@@ -1,6 +1,6 @@
 ---
 title: Quickstart
-description: The smallest useful EON developer loop.
+description: The smallest useful IOVI developer loop.
 sidebar:
   order: 1
 ---
@@ -24,7 +24,7 @@ curl "$BASE/health"
 
 Full API references:
 
-- [EON API Hub](/api/)
+- [IOVI API Hub](/api/)
 - [Rendered Payment SL reference](/api/payment-sl/)
 - [OpenAPI JSON](/openapi/payment-sl.openapi.json)
 - [Live Swagger](https://eon-payment-sl-demo-production.up.railway.app/docs)

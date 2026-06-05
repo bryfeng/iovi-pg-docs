@@ -10,6 +10,14 @@ Rendered reference and schema:
 
 - [Generic Verifier rendered API reference](/api/generic-verifier/)
 - [Generic Verifier OpenAPI JSON](/openapi/generic-verifier.openapi.json)
+- [Live Swagger](https://verifier-production-7dc3.up.railway.app/docs)
+- [Live ReDoc](https://verifier-production-7dc3.up.railway.app/redoc)
+
+Public base URL:
+
+```text
+https://verifier-production-7dc3.up.railway.app
+```
 
 ## When To Use This API
 
@@ -17,7 +25,7 @@ Use this API when a semantic layer needs to ingest ordered UTXO data and replay 
 
 Acceptance rule: read `/verifier/state` or `/verifier/log` after ingesting events; do not treat operator state or scalar encoding as final.
 
-Status: reference schema for local or deployed verifier services. No public hosted verifier URL is promoted yet.
+Status: public verifier endpoint. State reads require an `sl_id`; the current marketplace verifier root advertises `amm_sl_id` as `00040001`.
 
 ## Endpoints
 

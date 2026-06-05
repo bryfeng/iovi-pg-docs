@@ -1,7 +1,7 @@
 export const apiServices = [
   {
     slug: 'payment-sl',
-    name: 'Payment SL Sandbox API',
+    name: 'IOVI Payment SL Sandbox API',
     status: 'Public sandbox',
     schemaUrl: '/openapi/payment-sl.openapi.json',
     serviceUrl: 'https://eon-payment-sl-demo-production.up.railway.app',
@@ -12,46 +12,46 @@ export const apiServices = [
   },
   {
     slug: 'generic-verifier',
-    name: 'Generic Verifier API',
-    status: 'Schema only',
+    name: 'IOVI Generic Verifier API',
+    status: 'Public verifier',
     schemaUrl: '/openapi/generic-verifier.openapi.json',
-    serviceUrl: null,
-    endpointLabel: 'No public endpoint yet',
-    hideTestRequestButton: true,
+    serviceUrl: 'https://verifier-production-7dc3.up.railway.app',
+    endpointLabel: 'https://verifier-production-7dc3.up.railway.app',
+    hideTestRequestButton: false,
     description:
-      'Reference schema for ingesting ordered base-layer events and replaying semantic-layer rules. Bring your own verifier deployment URL to call it.'
+      'Public verifier endpoint for ingesting ordered base-layer events and replaying semantic-layer rules into accepted local state.'
   },
   {
     slug: 'bundler-engine',
-    name: 'Bundler Engine API',
-    status: 'Schema only',
+    name: 'IOVI Bundler Engine API',
+    status: 'Public sandbox',
     schemaUrl: '/openapi/bundler-engine.openapi.json',
-    serviceUrl: null,
-    endpointLabel: 'No public endpoint yet',
-    hideTestRequestButton: true,
+    serviceUrl: 'https://bundler-production-b637.up.railway.app',
+    endpointLabel: 'https://bundler-production-b637.up.railway.app',
+    hideTestRequestButton: false,
     description:
-      'Reference schema for wrapping child semantic-layer payloads into bundle payloads. Bring your own bundler deployment URL to call it.'
+      'Public bundler endpoint for wrapping child semantic-layer payloads into bundle payloads.'
   },
   {
     slug: 'marketplace',
-    name: 'Marketplace Bundler API',
-    status: 'Schema only',
+    name: 'IOVI Marketplace Bundler API',
+    status: 'Public sandbox',
     schemaUrl: '/openapi/marketplace-bundler.openapi.json',
-    serviceUrl: null,
-    endpointLabel: 'No public endpoint yet',
-    hideTestRequestButton: true,
+    serviceUrl: 'https://bundler-production-b637.up.railway.app',
+    endpointLabel: 'https://bundler-production-b637.up.railway.app',
+    hideTestRequestButton: false,
     description:
-      'Reference schema for AMM quotes, liquidity actions, approvals, swaps, and marketplace settlement bundles. Bring your own marketplace deployment URL to call it.'
+      'Public marketplace endpoint for AMM quotes, liquidity actions, approvals, swaps, and marketplace settlement bundles.'
   },
   {
     slug: 'base-layer',
-    name: 'Base-Layer API',
-    status: 'Schema only',
+    name: 'IOVI Base-Layer API',
+    status: 'Public base-layer API',
     schemaUrl: '/openapi/base-layer.openapi.json',
-    serviceUrl: null,
-    endpointLabel: 'No public endpoint yet',
+    serviceUrl: 'https://iovi-api-production.up.railway.app',
+    endpointLabel: 'https://iovi-api-production.up.railway.app',
     hideTestRequestButton: true,
     description:
-      'Reference schema for base-layer wallet, balance, UTXO, transaction, and transfer-with-Data endpoints. Bring your own base-layer API deployment URL to call it.'
+      'Public base-layer endpoint for wallet, balance, UTXO, transaction, and transfer-with-Data reads and writes. Write routes may require an API key.'
   }
 ];

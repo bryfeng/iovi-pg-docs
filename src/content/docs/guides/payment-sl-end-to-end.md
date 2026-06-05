@@ -17,7 +17,7 @@ API references:
 
 - [Rendered Payment SL reference](/api/payment-sl/)
 - [Payment SL OpenAPI JSON](/openapi/payment-sl.openapi.json)
-- [EON API Hub](/api/)
+- [IOVI API Hub](/api/)
 
 ## Flow
 

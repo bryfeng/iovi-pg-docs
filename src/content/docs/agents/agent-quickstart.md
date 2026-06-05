@@ -1,6 +1,6 @@
 ---
 title: Agent Quickstart
-description: Task-oriented entrypoint for AI agents using EON semantic-layer services.
+description: Task-oriented entrypoint for AI agents using IOVI semantic-layer services.
 sidebar:
   order: 1
 ---
@@ -12,11 +12,18 @@ API entrypoints:
 - [API Hub](/api/)
 - [Payment SL OpenAPI JSON](/openapi/payment-sl.openapi.json)
 - [Rendered Payment SL reference](/api/payment-sl/)
+- [Rendered Generic Verifier reference](/api/generic-verifier/)
+- [Rendered Bundler reference](/api/bundler-engine/)
+- [Rendered Marketplace reference](/api/marketplace/)
+- [Rendered Base-Layer reference](/api/base-layer/)
 
-Default public sandbox:
+Default public services:
 
 ```text
-https://eon-payment-sl-demo-production.up.railway.app
+PAYMENT_SL=https://eon-payment-sl-demo-production.up.railway.app
+VERIFIER=https://verifier-production-7dc3.up.railway.app
+BUNDLER_MARKETPLACE=https://bundler-production-b637.up.railway.app
+BASE_LAYER=https://iovi-api-production.up.railway.app
 ```
 
 ## Safe Model
@@ -85,4 +92,4 @@ GET /verifier/log
 - Do not claim EON verifies semantic-layer validity on the base layer.
 - Do not call raw VK submission production custody.
 - Do not call devnet scalar encoding a successful base-layer write.
-- Do not invent hosted URLs for verifier, bundler, marketplace, or base-layer services. Use their published schemas unless a deployment URL is supplied.
+- Do not invent hosted URLs. Use the public URLs above unless the user supplies their own deployment.

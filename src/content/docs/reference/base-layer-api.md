@@ -15,7 +15,13 @@ Rendered reference and schema:
 - [Base-Layer rendered API reference](/api/base-layer/)
 - [Base-Layer OpenAPI JSON](/openapi/base-layer.openapi.json)
 
-Status: reference schema for local or deployed base-layer API services. No public hosted base-layer API URL is promoted yet.
+Public base URL:
+
+```text
+https://iovi-api-production.up.railway.app
+```
+
+Status: public base-layer API. The live service does not expose Swagger, ReDoc, or `/openapi.json` today, so this checked-in schema is the canonical public reference.
 
 ## Endpoints
 
@@ -43,7 +49,7 @@ POST /transactions/transfer
 }
 ```
 
-Write routes require `POSTER_API_KEY` when configured. Send it as `x-api-key` or `Authorization: Bearer`.
+Write routes may require `POSTER_API_KEY`. Send it as `x-api-key` or `Authorization: Bearer` when a key is issued.
 
 ## Environment
 

@@ -12,6 +12,14 @@ Rendered references and schemas:
 - [Bundler Engine OpenAPI JSON](/openapi/bundler-engine.openapi.json)
 - [Marketplace rendered API reference](/api/marketplace/)
 - [Marketplace OpenAPI JSON](/openapi/marketplace-bundler.openapi.json)
+- [Live Swagger](https://bundler-production-b637.up.railway.app/docs)
+- [Live ReDoc](https://bundler-production-b637.up.railway.app/redoc)
+
+Public base URL:
+
+```text
+https://bundler-production-b637.up.railway.app
+```
 
 ## When To Use These APIs
 
@@ -19,7 +27,7 @@ Use the generic bundler engine to wrap child semantic-layer payloads into a pare
 
 Trust boundary: bundles preserve transport and settlement ordering, but each child semantic layer still owns validity and replay semantics.
 
-Status: reference schemas for local or deployed marketplace services. No public hosted marketplace URL is promoted yet.
+Status: public bundler/marketplace endpoint. The generic bundler and marketplace extension schemas currently share the same Railway deployment.
 
 ## Generic Bundler Engine
 

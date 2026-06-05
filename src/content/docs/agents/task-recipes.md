@@ -7,10 +7,13 @@ sidebar:
 
 ## Create A Wallet Registry Entry
 
-Default public sandbox:
+Default public services:
 
 ```text
-https://eon-payment-sl-demo-production.up.railway.app
+PAYMENT_SL=https://eon-payment-sl-demo-production.up.railway.app
+VERIFIER=https://verifier-production-7dc3.up.railway.app
+BUNDLER_MARKETPLACE=https://bundler-production-b637.up.railway.app
+BASE_LAYER=https://iovi-api-production.up.railway.app
 ```
 
 Exact schemas live in the [API Hub](/api/) and [Payment SL reference](/api/payment-sl/).
@@ -77,6 +80,8 @@ POST /verifier/sync
 If status is not ready, use `POST /devnet/encode-payload` and report that live submission is unconfigured.
 
 ## Build Marketplace Bundle
+
+Use `BUNDLER_MARKETPLACE`.
 
 ```text
 GET /assets

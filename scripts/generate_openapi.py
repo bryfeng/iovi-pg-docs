@@ -18,9 +18,9 @@ PUBLIC_OUT_DIR = ROOT / "eon-docs" / "public" / "openapi"
 
 SERVICE_META: dict[str, dict[str, Any]] = {
     "payment-sl": {
-        "title": "EON Payment SL Sandbox API",
+        "title": "IOVI Payment SL Sandbox API",
         "description": (
-            "Public sandbox middleware for trying the current EON Payment semantic-layer flow: "
+            "Public sandbox middleware for trying the current IOVI Payment semantic-layer flow: "
             "register wallets, create semantic-layer actions, batch them, and verify accepted state."
         ),
         "servers": [
@@ -31,55 +31,54 @@ SERVICE_META: dict[str, dict[str, Any]] = {
         ],
     },
     "generic-verifier": {
-        "title": "EON Generic Verifier API",
+        "title": "IOVI Generic Verifier API",
         "description": (
-            "Verifier API for ingesting ordered base-layer events and replaying semantic-layer "
-            "rules into accepted local state. This schema is reference-first; deploy or run the "
-            "verifier stack for a service URL."
+            "Public verifier API for ingesting ordered base-layer events and replaying semantic-layer "
+            "rules into accepted local state."
         ),
         "servers": [
             {
-                "url": "https://your-verifier.example.com",
-                "description": "Your deployed verifier service. No public hosted verifier endpoint is promoted yet.",
+                "url": "https://verifier-production-7dc3.up.railway.app",
+                "description": "Public Generic Verifier service",
             }
         ],
     },
     "bundler-engine": {
-        "title": "EON Bundler Engine API",
+        "title": "IOVI Bundler Engine API",
         "description": (
-            "Bundler API for wrapping child semantic-layer payloads into bundle payloads that can "
+            "Public bundler API for wrapping child semantic-layer payloads into bundle payloads that can "
             "be transported as base-layer UTXO Data."
         ),
         "servers": [
             {
-                "url": "https://your-bundler.example.com",
-                "description": "Your deployed bundler service. No public hosted bundler endpoint is promoted yet.",
+                "url": "https://bundler-production-b637.up.railway.app",
+                "description": "Public Bundler Engine service",
             }
         ],
     },
     "marketplace-bundler": {
-        "title": "EON Marketplace Bundler API",
+        "title": "IOVI Marketplace Bundler API",
         "description": (
-            "Marketplace extension API for AMM quotes, liquidity, approvals, swaps, and bundle "
+            "Public marketplace extension API for AMM quotes, liquidity, approvals, swaps, and bundle "
             "settlement payloads."
         ),
         "servers": [
             {
-                "url": "https://your-marketplace.example.com",
-                "description": "Your deployed marketplace service. No public hosted marketplace endpoint is promoted yet.",
+                "url": "https://bundler-production-b637.up.railway.app",
+                "description": "Public Bundler/Marketplace service",
             }
         ],
     },
     "base-layer": {
-        "title": "EON Base-Layer API",
+        "title": "IOVI Base-Layer API",
         "description": (
-            "HTTP posting and read API around EON SDK wallet, UTXO, transaction, and transfer-with-Data flows. "
+            "HTTP posting and read API around IOVI SDK wallet, UTXO, transaction, and transfer-with-Data flows. "
             "Semantic-layer meaning is not interpreted by this service."
         ),
         "servers": [
             {
-                "url": "https://your-base-layer-api.example.com",
-                "description": "Your deployed base-layer API. No public hosted base-layer endpoint is promoted yet.",
+                "url": "https://iovi-api-production.up.railway.app",
+                "description": "Public Base-Layer API. The live service does not expose OpenAPI; this checked-in schema documents the public surface.",
             }
         ],
     },
@@ -490,7 +489,7 @@ def marketplace_bundler_schema() -> dict[str, Any]:
     add_path("eon-marketplace-stack/packages/eon-settlement-framework")
     add_path("eon-marketplace-stack/packages/eon-amm-framework")
     add_path("eon-marketplace-stack/packages/eon-bundler-engine")
-    os.environ.setdefault("EON_VERIFIER_URL", "http://localhost:8000")
+    os.environ.setdefault("EON_VERIFIER_URL", "https://verifier-production-7dc3.up.railway.app")
     module = importlib.import_module("services.bundler_api")
     module.app.openapi_schema = None
     return module.app.openapi()
@@ -499,7 +498,7 @@ def marketplace_bundler_schema() -> dict[str, Any]:
 def base_layer_schema() -> dict[str, Any]:
     return {
         "openapi": "3.1.0",
-        "info": {"title": "EON Base-Layer API", "version": "0.1.0"},
+        "info": {"title": "IOVI Base-Layer API", "version": "0.1.0"},
         "paths": {
             "/health": {
                 "get": {

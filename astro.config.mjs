@@ -5,8 +5,8 @@ export default defineConfig({
   site: 'https://iovi-pg-docs.vercel.app',
   integrations: [
     starlight({
-      title: 'EON Docs',
-      description: 'Reference docs for EON semantic layers, middleware APIs, verifiers, and agents.',
+      title: 'IOVI Docs',
+      description: 'Reference docs for IOVI semantic layers, middleware APIs, verifiers, and agents.',
       social: [
         {
           icon: 'github',

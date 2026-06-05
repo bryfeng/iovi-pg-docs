@@ -1,11 +1,11 @@
 ---
-title: EON Docs
-description: Build semantic layers on EON using ordered UTXO data, middleware APIs, verifiers, and agent-ready workflows.
+title: IOVI Docs
+description: Build semantic layers on IOVI using ordered UTXO data, middleware APIs, verifiers, and agent-ready workflows.
 sidebar:
   order: 1
 ---
 
-EON gives semantic layers a base layer for canonical ordering and retrievable opaque data. The base layer does not decide whether a payload is valid for an application. Each semantic layer owns its own validity rules.
+IOVI gives semantic layers a base layer for canonical ordering and retrievable opaque data. The base layer does not decide whether a payload is valid for an application. Each semantic layer owns its own validity rules.
 
 The short version:
 

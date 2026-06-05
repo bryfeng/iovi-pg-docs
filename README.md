@@ -1,6 +1,6 @@
-# EON Docs
+# IOVI Docs
 
-Dedicated Astro Starlight docs for EON semantic layers, middleware APIs, verifier flows, marketplace bundles, and AI-agent task recipes.
+Dedicated Astro Starlight docs for IOVI semantic layers, middleware APIs, verifier flows, marketplace bundles, and AI-agent task recipes.
 
 ## Local Development
 
