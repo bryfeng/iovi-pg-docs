@@ -414,8 +414,8 @@
   },
   "servers": [
     {
-      "description": "Local verifier service",
-      "url": "http://localhost:8000"
+      "description": "Your deployed verifier service. No public hosted verifier endpoint is promoted yet.",
+      "url": "https://your-verifier.example.com"
     }
   ],
   "tags": [

@@ -5,6 +5,7 @@ export const apiServices = [
     status: 'Public sandbox',
     schemaUrl: '/openapi/payment-sl.openapi.json',
     serviceUrl: 'https://eon-payment-sl-demo-production.up.railway.app',
+    endpointLabel: 'https://eon-payment-sl-demo-production.up.railway.app',
     hideTestRequestButton: false,
     description:
       'Register wallets, create Payment semantic-layer actions, batch them, and read verifier-accepted state.'
@@ -12,39 +13,45 @@ export const apiServices = [
   {
     slug: 'generic-verifier',
     name: 'Generic Verifier API',
-    status: 'Reference / deploy locally',
+    status: 'Schema only',
     schemaUrl: '/openapi/generic-verifier.openapi.json',
-    serviceUrl: 'http://localhost:8000',
+    serviceUrl: null,
+    endpointLabel: 'No public endpoint yet',
     hideTestRequestButton: true,
     description:
-      'Ingest ordered base-layer events and replay semantic-layer rules into accepted local state.'
+      'Reference schema for ingesting ordered base-layer events and replaying semantic-layer rules. Bring your own verifier deployment URL to call it.'
   },
   {
     slug: 'bundler-engine',
     name: 'Bundler Engine API',
-    status: 'Reference / deploy locally',
+    status: 'Schema only',
     schemaUrl: '/openapi/bundler-engine.openapi.json',
-    serviceUrl: 'http://localhost:8000',
+    serviceUrl: null,
+    endpointLabel: 'No public endpoint yet',
     hideTestRequestButton: true,
-    description: 'Wrap child semantic-layer payloads into bundle payloads carried by UTXO Data.'
+    description:
+      'Reference schema for wrapping child semantic-layer payloads into bundle payloads. Bring your own bundler deployment URL to call it.'
   },
   {
     slug: 'marketplace',
     name: 'Marketplace Bundler API',
-    status: 'Reference / deploy locally',
+    status: 'Schema only',
     schemaUrl: '/openapi/marketplace-bundler.openapi.json',
-    serviceUrl: 'http://localhost:8000',
+    serviceUrl: null,
+    endpointLabel: 'No public endpoint yet',
     hideTestRequestButton: true,
     description:
-      'Create AMM quotes, liquidity actions, approvals, swaps, and marketplace settlement bundles.'
+      'Reference schema for AMM quotes, liquidity actions, approvals, swaps, and marketplace settlement bundles. Bring your own marketplace deployment URL to call it.'
   },
   {
     slug: 'base-layer',
     name: 'Base-Layer API',
-    status: 'Reference / deploy locally',
+    status: 'Schema only',
     schemaUrl: '/openapi/base-layer.openapi.json',
-    serviceUrl: 'http://localhost:8000',
+    serviceUrl: null,
+    endpointLabel: 'No public endpoint yet',
     hideTestRequestButton: true,
-    description: 'Read base-layer wallet, balance, UTXO, and transaction data or post transfers with Data.'
+    description:
+      'Reference schema for base-layer wallet, balance, UTXO, transaction, and transfer-with-Data endpoints. Bring your own base-layer API deployment URL to call it.'
   }
 ];

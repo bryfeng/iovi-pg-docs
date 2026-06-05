@@ -27,8 +27,7 @@ SERVICE_META: dict[str, dict[str, Any]] = {
             {
                 "url": "https://eon-payment-sl-demo-production.up.railway.app",
                 "description": "Public Payment SL sandbox",
-            },
-            {"url": "http://localhost:8000", "description": "Local Payment SL middleware"},
+            }
         ],
     },
     "generic-verifier": {
@@ -38,7 +37,12 @@ SERVICE_META: dict[str, dict[str, Any]] = {
             "rules into accepted local state. This schema is reference-first; deploy or run the "
             "verifier stack for a service URL."
         ),
-        "servers": [{"url": "http://localhost:8000", "description": "Local verifier service"}],
+        "servers": [
+            {
+                "url": "https://your-verifier.example.com",
+                "description": "Your deployed verifier service. No public hosted verifier endpoint is promoted yet.",
+            }
+        ],
     },
     "bundler-engine": {
         "title": "EON Bundler Engine API",
@@ -46,7 +50,12 @@ SERVICE_META: dict[str, dict[str, Any]] = {
             "Bundler API for wrapping child semantic-layer payloads into bundle payloads that can "
             "be transported as base-layer UTXO Data."
         ),
-        "servers": [{"url": "http://localhost:8000", "description": "Local bundler engine"}],
+        "servers": [
+            {
+                "url": "https://your-bundler.example.com",
+                "description": "Your deployed bundler service. No public hosted bundler endpoint is promoted yet.",
+            }
+        ],
     },
     "marketplace-bundler": {
         "title": "EON Marketplace Bundler API",
@@ -54,7 +63,12 @@ SERVICE_META: dict[str, dict[str, Any]] = {
             "Marketplace extension API for AMM quotes, liquidity, approvals, swaps, and bundle "
             "settlement payloads."
         ),
-        "servers": [{"url": "http://localhost:8000", "description": "Local marketplace stack"}],
+        "servers": [
+            {
+                "url": "https://your-marketplace.example.com",
+                "description": "Your deployed marketplace service. No public hosted marketplace endpoint is promoted yet.",
+            }
+        ],
     },
     "base-layer": {
         "title": "EON Base-Layer API",
@@ -62,7 +76,12 @@ SERVICE_META: dict[str, dict[str, Any]] = {
             "HTTP posting and read API around EON SDK wallet, UTXO, transaction, and transfer-with-Data flows. "
             "Semantic-layer meaning is not interpreted by this service."
         ),
-        "servers": [{"url": "http://localhost:8000", "description": "Local base-layer API"}],
+        "servers": [
+            {
+                "url": "https://your-base-layer-api.example.com",
+                "description": "Your deployed base-layer API. No public hosted base-layer endpoint is promoted yet.",
+            }
+        ],
     },
 }
 

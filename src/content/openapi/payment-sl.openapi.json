@@ -2996,10 +2996,6 @@
     {
       "description": "Public Payment SL sandbox",
       "url": "https://eon-payment-sl-demo-production.up.railway.app"
-    },
-    {
-      "description": "Local Payment SL middleware",
-      "url": "http://localhost:8000"
     }
   ],
   "tags": [

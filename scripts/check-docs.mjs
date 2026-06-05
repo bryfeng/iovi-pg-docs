@@ -13,6 +13,7 @@ const requiredSchemas = [
   'bundler-engine.openapi.json',
   'marketplace-bundler.openapi.json'
 ];
+const forbiddenPublicApiPatterns = [/localhost/i, /127\.0\.0\.1/i, /Reference \/ deploy locally/i];
 
 const failures = [];
 
@@ -27,6 +28,13 @@ for (const schema of requiredSchemas) {
     failures.push(`missing public OpenAPI artifact: ${schema}`);
   } else if (readFileSync(sourcePath, 'utf8') !== readFileSync(publicPath, 'utf8')) {
     failures.push(`public OpenAPI artifact does not match source artifact: ${schema}`);
+  } else {
+    const publicSchema = readFileSync(publicPath, 'utf8');
+    for (const pattern of forbiddenPublicApiPatterns) {
+      if (pattern.test(publicSchema)) {
+        failures.push(`public OpenAPI artifact contains public-facing placeholder leak ${pattern}: ${schema}`);
+      }
+    }
   }
 
   const parsed = JSON.parse(readFileSync(sourcePath, 'utf8'));
@@ -47,6 +55,19 @@ for (const schema of requiredSchemas) {
       }
       if (!JSON.stringify(operation.responses ?? {}).includes('"example"')) {
         failures.push(`${schema} ${method.toUpperCase()} ${route} missing response example`);
+      }
+    }
+  }
+}
+
+const builtApiRoot = join(distRoot, 'api');
+if (existsSync(builtApiRoot)) {
+  for (const file of walk(builtApiRoot)) {
+    if (extname(file) !== '.html') continue;
+    const source = readFileSync(file, 'utf8');
+    for (const pattern of forbiddenPublicApiPatterns) {
+      if (pattern.test(source)) {
+        failures.push(`${relative(file)} contains public-facing placeholder leak ${pattern}`);
       }
     }
   }

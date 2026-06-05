@@ -289,8 +289,8 @@
   },
   "servers": [
     {
-      "description": "Local base-layer API",
-      "url": "http://localhost:8000"
+      "description": "Your deployed base-layer API. No public hosted base-layer endpoint is promoted yet.",
+      "url": "https://your-base-layer-api.example.com"
     }
   ],
   "tags": [

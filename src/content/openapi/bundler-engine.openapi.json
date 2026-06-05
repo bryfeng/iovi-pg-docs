@@ -173,8 +173,8 @@
   },
   "servers": [
     {
-      "description": "Local bundler engine",
-      "url": "http://localhost:8000"
+      "description": "Your deployed bundler service. No public hosted bundler endpoint is promoted yet.",
+      "url": "https://your-bundler.example.com"
     }
   ],
   "tags": [

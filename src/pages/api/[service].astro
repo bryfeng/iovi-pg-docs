@@ -11,6 +11,25 @@ export function getStaticPaths() {
 
 const { service } = Astro.props;
 const title = `${service.name} | EON API Reference`;
+const scalarConfiguration = {
+  cdn: 'https://cdn.jsdelivr.net/npm/@scalar/api-reference@1.58.0',
+  url: service.schemaUrl,
+  pageTitle: title,
+  title: service.name,
+  ...(service.serviceUrl ? { baseServerURL: service.serviceUrl } : {}),
+  layout: 'modern',
+  theme: 'moon',
+  darkMode: true,
+  forceDarkModeState: 'dark',
+  showSidebar: true,
+  hideClientButton: false,
+  hideDownloadButton: false,
+  hideTestRequestButton: service.hideTestRequestButton,
+  documentDownloadType: 'both',
+  operationTitleSource: 'summary',
+  modelsSectionLabel: 'Schemas',
+  telemetry: false
+} as const;
 ---
 
 <!doctype html>
@@ -112,29 +131,19 @@ const title = `${service.name} | EON API Reference`;
         </div>
       </div>
       <p>{service.description}</p>
+      {
+        !service.serviceUrl && (
+          <p>
+            This is a schema reference, not a hosted public API. Use the OpenAPI JSON with your own
+            deployment URL before sending requests.
+          </p>
+        )
+      }
     </header>
     <main class="api-shell">
       <ScalarComponent
         renderMode="client"
-        configuration={{
-          cdn: 'https://cdn.jsdelivr.net/npm/@scalar/api-reference@1.58.0',
-          url: service.schemaUrl,
-          pageTitle: title,
-          title: service.name,
-          baseServerURL: service.serviceUrl,
-          layout: 'modern',
-          theme: 'moon',
-          darkMode: true,
-          forceDarkModeState: 'dark',
-          showSidebar: true,
-          hideClientButton: false,
-          hideDownloadButton: false,
-          hideTestRequestButton: service.hideTestRequestButton,
-          documentDownloadType: 'both',
-          operationTitleSource: 'summary',
-          modelsSectionLabel: 'Schemas',
-          telemetry: false
-        }}
+        configuration={scalarConfiguration}
       />
     </main>
   </body>

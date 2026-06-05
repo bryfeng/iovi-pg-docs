@@ -7,7 +7,7 @@ sidebar:
 
 import { CardGrid, LinkCard } from '@astrojs/starlight/components';
 
-Use this page when you want to call an EON service from the outside. The fastest public path today is the Payment SL sandbox. Other service schemas are published for local deployment and integration planning until hosted URLs are promoted.
+Use this page when you want to call an EON service from the outside. The fastest public path today is the Payment SL sandbox. Other service schemas are published for self-hosted deployments and integration planning until public endpoints are promoted.
 
 ## Try The Public Sandbox
 
@@ -32,13 +32,15 @@ Live references:
 
 ## Service Status
 
-| Service | Status | Base URL | Schema | Full Reference |
+| Service | Status | Endpoint | Schema | Full Reference |
 | --- | --- | --- | --- | --- |
 | Payment SL Sandbox | Public sandbox | `https://eon-payment-sl-demo-production.up.railway.app` | [JSON](/openapi/payment-sl.openapi.json) | [Open](/api/payment-sl/) |
-| Generic Verifier | Reference / deploy locally | `http://localhost:8000` | [JSON](/openapi/generic-verifier.openapi.json) | [Open](/api/generic-verifier/) |
-| Bundler Engine | Reference / deploy locally | `http://localhost:8000` | [JSON](/openapi/bundler-engine.openapi.json) | [Open](/api/bundler-engine/) |
-| Marketplace Bundler | Reference / deploy locally | `http://localhost:8000` | [JSON](/openapi/marketplace-bundler.openapi.json) | [Open](/api/marketplace/) |
-| Base-Layer API | Reference / deploy locally | `http://localhost:8000` | [JSON](/openapi/base-layer.openapi.json) | [Open](/api/base-layer/) |
+| Generic Verifier | Schema only | No public endpoint yet | [JSON](/openapi/generic-verifier.openapi.json) | [Open](/api/generic-verifier/) |
+| Bundler Engine | Schema only | No public endpoint yet | [JSON](/openapi/bundler-engine.openapi.json) | [Open](/api/bundler-engine/) |
+| Marketplace Bundler | Schema only | No public endpoint yet | [JSON](/openapi/marketplace-bundler.openapi.json) | [Open](/api/marketplace/) |
+| Base-Layer API | Schema only | No public endpoint yet | [JSON](/openapi/base-layer.openapi.json) | [Open](/api/base-layer/) |
+
+For schema-only services, import the OpenAPI document into your deployment tooling and set the server URL to your own hosted service. Do not treat the docs site itself as the API host.
 
 ## First Payment Flow
 

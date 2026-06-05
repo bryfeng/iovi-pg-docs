@@ -1073,8 +1073,8 @@
   },
   "servers": [
     {
-      "description": "Local marketplace stack",
-      "url": "http://localhost:8000"
+      "description": "Your deployed marketplace service. No public hosted marketplace endpoint is promoted yet.",
+      "url": "https://your-marketplace.example.com"
     }
   ],
   "tags": [
