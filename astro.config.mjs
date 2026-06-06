@@ -24,7 +24,8 @@ export default defineConfig({
           items: [
             { label: 'Overview', slug: 'index' },
             { label: 'Quickstart', slug: 'guides/quickstart' },
-            { label: 'Agent Quickstart', slug: 'agents/agent-quickstart' }
+            { label: 'Agent Quickstart', slug: 'agents/agent-quickstart' },
+            { label: 'Open Playground', link: 'https://iovi-payment-sl-playground.vercel.app/' }
           ]
         },
         {

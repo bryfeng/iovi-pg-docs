@@ -5,6 +5,8 @@ sidebar:
   order: 1
 ---
 
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+
 IOVI gives semantic layers a base layer for canonical ordering and retrievable opaque data. The base layer does not decide whether a payload is valid for an application. Each semantic layer owns its own validity rules.
 
 The short version:
@@ -22,6 +24,23 @@ The short version:
 - [Payment SL End To End](guides/payment-sl-end-to-end/) for the current middleware flow.
 - [Agent Quickstart](agents/agent-quickstart/) for AI agents that need to spin up or transact inside a semantic layer.
 - Need exact endpoints or schemas? Start with the external-facing [API Hub](/api/).
+
+## Live Playground
+
+Use the playground when you want to exercise the current public sandbox without hand-writing every request.
+
+<CardGrid>
+  <LinkCard
+    title="Open IOVI Playground"
+    description="Run the live Payment SL, marketplace, pipeline, UTXO, and verifier workflows."
+    href="https://iovi-payment-sl-playground.vercel.app/"
+  />
+  <LinkCard
+    title="Open API Hub"
+    description="Use exact endpoint references and checked-in OpenAPI schemas."
+    href="/api/"
+  />
+</CardGrid>
 
 ## Current Docs Boundary
 

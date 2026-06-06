@@ -46,6 +46,8 @@ The base-layer service is public, but it does not expose live Swagger or `/opena
 
 The docs site is not the API host. Use the endpoint in the table as the base URL, then use the rendered references for exact request and response shapes.
 
+Prefer a UI walkthrough first? Open the [IOVI Playground](https://iovi-payment-sl-playground.vercel.app/) and use the API hub as the exact endpoint companion.
+
 ## First Payment Flow
 
 The public sandbox is stateful, so treat it as a shared demo service. Use these requests as the minimal integration shape, then switch to the rendered reference for exact request and response schemas.
@@ -78,6 +80,11 @@ Verifier reads are the accepted state surface. Operator state is useful for batc
 ## Reference Pages
 
 <CardGrid>
+  <LinkCard
+    title="IOVI Playground"
+    description="Try the live sandbox flows in the app, then return here for exact API schemas."
+    href="https://iovi-payment-sl-playground.vercel.app/"
+  />
   <LinkCard
     title="Payment SL Sandbox"
     description="Wallets, actions, operator batches, devnet boundaries, and verifier reads."

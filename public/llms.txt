@@ -21,6 +21,9 @@ Primary task pages:
 - /openapi/marketplace-bundler.openapi.json
 - /openapi/base-layer.openapi.json
 
+Live playground:
+https://iovi-payment-sl-playground.vercel.app/
+
 Default public services:
 PAYMENT_SL=https://eon-payment-sl-demo-production.up.railway.app
 VERIFIER=https://verifier-production-7dc3.up.railway.app
