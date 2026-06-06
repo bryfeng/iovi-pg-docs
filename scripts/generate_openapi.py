@@ -101,6 +101,14 @@ TAG_DESCRIPTIONS: dict[str, str] = {
 }
 
 
+SEMANTIC_LAYER_ID_DESCRIPTION = (
+    "Hex semantic-layer identifier. Use the default Payment SL `00010001` or generate an isolated "
+    "hex lane such as `a9bca654`; non-hex values are rejected by the public sandbox."
+)
+SEMANTIC_LAYER_ID_PATTERN = "^[0-9a-fA-F]+$"
+VERSION_DESCRIPTION = "Semantic-layer version. The public examples use four hex digits such as `0001`."
+
+
 REQUEST_EXAMPLES: dict[str, Any] = {
     "InitRequest": {
         "issuer_vk": "circle_inc_verification_key",
@@ -298,6 +306,7 @@ def enhance_schema(name: str, schema: dict[str, Any]) -> None:
         for tag, description in TAG_DESCRIPTIONS.items()
         if tag_used(name, tag)
     ]
+    add_common_schema_docs(schema)
 
     for path, methods in schema.get("paths", {}).items():
         for method, operation in methods.items():
@@ -308,6 +317,22 @@ def enhance_schema(name: str, schema: dict[str, Any]) -> None:
             add_parameter_examples(operation)
             add_request_example(operation)
             add_response_example(method, path, operation)
+
+
+def add_common_schema_docs(schema: dict[str, Any]) -> None:
+    for component in schema.get("components", {}).get("schemas", {}).values():
+        properties = component.get("properties", {})
+        if not isinstance(properties, dict):
+            continue
+
+        for name, property_schema in properties.items():
+            if not isinstance(property_schema, dict):
+                continue
+            if name == "sl_id" or name.endswith("_sl_id"):
+                property_schema.setdefault("description", SEMANTIC_LAYER_ID_DESCRIPTION)
+                property_schema.setdefault("pattern", SEMANTIC_LAYER_ID_PATTERN)
+            if name == "version" or name.endswith("_version"):
+                property_schema.setdefault("description", VERSION_DESCRIPTION)
 
 
 def tag_used(service: str, tag: str) -> bool:
@@ -390,6 +415,14 @@ def add_parameter_examples(operation: dict[str, Any]) -> None:
         name = parameter.get("name")
         if name in examples:
             parameter["example"] = examples[name]
+        if name == "sl_id" or (isinstance(name, str) and name.endswith("_sl_id")):
+            parameter["description"] = SEMANTIC_LAYER_ID_DESCRIPTION
+            schema = parameter.setdefault("schema", {})
+            if isinstance(schema, dict):
+                schema.setdefault("type", "string")
+                schema.setdefault("pattern", SEMANTIC_LAYER_ID_PATTERN)
+        if name == "version" or (isinstance(name, str) and name.endswith("_version")):
+            parameter.setdefault("description", VERSION_DESCRIPTION)
 
 
 def add_request_example(operation: dict[str, Any]) -> None:

@@ -2,7 +2,7 @@
 title: Task Recipes
 description: Agent-ready recipes for common EON workflows.
 sidebar:
-  order: 2
+  order: 3
 ---
 
 ## Create A Wallet Registry Entry
@@ -17,6 +17,10 @@ BASE_LAYER=https://iovi-api-production.up.railway.app
 ```
 
 Exact schemas live in the [API Hub](/api/) and [Payment SL reference](/api/payment-sl/).
+
+Need a runnable end-to-end check first? Use the [Agent Smoke Test](/agents/smoke-test/).
+
+Use hex-only `sl_id` values. The default Payment SL lane is `00010001`; isolated test lanes can be generated as eight hex characters.
 
 ```http
 POST /wallets

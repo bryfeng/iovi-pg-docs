@@ -2,7 +2,7 @@
 title: Constraints And Defaults
 description: Operational constraints agents should preserve.
 sidebar:
-  order: 3
+  order: 4
 ---
 
 ## Defaults
@@ -15,6 +15,8 @@ USD SL ID: 00020002
 Settlement SL ID: 00030001
 AMM SL ID: 00040001
 ```
+
+Semantic-layer IDs are hex strings. The public sandbox rejects non-hex `sl_id` values.
 
 ## Current Auth Caveat
 

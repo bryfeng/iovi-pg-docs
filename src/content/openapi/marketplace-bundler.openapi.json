@@ -87,7 +87,9 @@
         "properties": {
           "amm_sl_id": {
             "default": "00040001",
+            "description": "Hex semantic-layer identifier. Use the default Payment SL `00010001` or generate an isolated hex lane such as `a9bca654`; non-hex values are rejected by the public sandbox.",
             "minLength": 1,
+            "pattern": "^[0-9a-fA-F]+$",
             "title": "Amm Sl Id",
             "type": "string"
           },
@@ -121,12 +123,15 @@
             "type": "string"
           },
           "sl_id": {
+            "description": "Hex semantic-layer identifier. Use the default Payment SL `00010001` or generate an isolated hex lane such as `a9bca654`; non-hex values are rejected by the public sandbox.",
             "minLength": 1,
+            "pattern": "^[0-9a-fA-F]+$",
             "title": "Sl Id",
             "type": "string"
           },
           "version": {
             "default": "0001",
+            "description": "Semantic-layer version. The public examples use four hex digits such as `0001`.",
             "minLength": 1,
             "title": "Version",
             "type": "string"
@@ -930,11 +935,13 @@
             }
           },
           {
+            "description": "Hex semantic-layer identifier. Use the default Payment SL `00010001` or generate an isolated hex lane such as `a9bca654`; non-hex values are rejected by the public sandbox.",
             "example": "55534443",
             "in": "query",
             "name": "input_sl_id",
             "required": true,
             "schema": {
+              "pattern": "^[0-9a-fA-F]+$",
               "title": "Input Sl Id",
               "type": "string"
             }
@@ -961,6 +968,7 @@
             }
           },
           {
+            "description": "Semantic-layer version. The public examples use four hex digits such as `0001`.",
             "example": "0001",
             "in": "query",
             "name": "input_version",

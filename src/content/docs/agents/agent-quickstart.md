@@ -10,6 +10,7 @@ Use this page when an AI agent needs to spin up a semantic layer or transact wit
 API entrypoints:
 
 - [API Hub](/api/)
+- [Agent Smoke Test](/agents/smoke-test/)
 - [Payment SL OpenAPI JSON](/openapi/payment-sl.openapi.json)
 - [Rendered Payment SL reference](/api/payment-sl/)
 - [Rendered Generic Verifier reference](/api/generic-verifier/)
@@ -26,6 +27,19 @@ BUNDLER_MARKETPLACE=https://bundler-production-b637.up.railway.app
 BASE_LAYER=https://iovi-api-production.up.railway.app
 ```
 
+Prefer the UI first? Open the [IOVI Playground](https://iovi-payment-sl-playground.vercel.app/) and return here for exact endpoint ordering.
+
+## Service Ownership
+
+| Service variable | Owns | Use it for |
+| --- | --- | --- |
+| `PAYMENT_SL` | Payment semantic-layer sandbox middleware | wallets, semantic-layer registry, actions, batching, devnet submit, embedded sandbox verifier reads |
+| `VERIFIER` | Generic verifier service | normalized base-layer event ingestion and accepted state for generic semantic-layer payloads |
+| `BUNDLER_MARKETPLACE` | Bundler and marketplace stack | bundle wrapping, AMM quotes, swaps, settlement payloads |
+| `BASE_LAYER` | Base-layer posting/read API | wallet address, balance, UTXOs, transfer-with-Data posting |
+
+`PAYMENT_SL` includes embedded verifier endpoints for the sandbox Payment SL flow. `VERIFIER` is the standalone Generic Verifier service. Do not mix those unless the task explicitly crosses from sandbox middleware into generic event ingestion.
+
 ## Safe Model
 
 ```text
@@ -34,17 +48,19 @@ operator posts UTXO, wallet owns semantic state
 
 Do not imply the wallet receives the posting UTXO unless the UTXO is explicitly designed as a carrier asset.
 
+`sl_id` values must be hex strings. Use `00010001` for the default Payment SL, or generate isolated test lanes such as `a9bca654`.
+
 ## Spin Up A Payment Semantic Layer
 
-Call in order against the selected `BASE` URL:
+Call in order against `PAYMENT_SL`:
 
 ```text
-POST /operator/init
-POST /wallets                    # create or register operator wallet
-POST /base-layer/accounts/generate
-POST /semantic-layers
-POST /semantic-layers/{sl_id}/assets
-GET /semantic-layers/workbench-state
+PAYMENT_SL POST /wallets                         # create or register operator wallet
+PAYMENT_SL POST /operator/init                   # initialize that semantic-layer lane
+PAYMENT_SL POST /base-layer/accounts/generate    # optional for devnet posting
+PAYMENT_SL POST /semantic-layers
+PAYMENT_SL POST /semantic-layers/{sl_id}/assets
+PAYMENT_SL GET  /semantic-layers/workbench-state
 ```
 
 Minimum semantic-layer record:
@@ -64,16 +80,24 @@ Minimum semantic-layer record:
 Call in order:
 
 ```text
-POST /wallets
-POST /actions/mint
-POST /operator/batch
-POST /verifier/accept-latest-batch
-GET /balances/{address}
-POST /actions/transfer
-POST /operator/batch
-POST /verifier/accept-latest-batch
-GET /balances/{address}
-GET /verifier/log
+PAYMENT_SL POST /wallets
+PAYMENT_SL POST /actions/mint
+PAYMENT_SL POST /operator/batch
+PAYMENT_SL POST /verifier/accept-latest-batch
+PAYMENT_SL GET  /balances/{address}
+PAYMENT_SL POST /actions/transfer
+PAYMENT_SL POST /operator/batch
+PAYMENT_SL POST /verifier/accept-latest-batch
+PAYMENT_SL GET  /balances/{address}
+PAYMENT_SL GET  /verifier/log
+```
+
+For the devnet-backed path, replace local accept with:
+
+```text
+PAYMENT_SL GET  /devnet/status
+PAYMENT_SL POST /devnet/submit-latest-batch
+PAYMENT_SL POST /verifier/sync
 ```
 
 ## Verify A Base-Layer Event
@@ -81,9 +105,9 @@ GET /verifier/log
 Use the normalized event boundary:
 
 ```text
-POST /verifier/ingest-event
-GET /verifier/state
-GET /verifier/log
+GENERIC_VERIFIER POST /verifier/ingest-event
+GENERIC_VERIFIER GET  /verifier/state
+GENERIC_VERIFIER GET  /verifier/log
 ```
 
 ## Do Not

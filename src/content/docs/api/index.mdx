@@ -21,6 +21,9 @@ First check:
 
 ```bash
 curl https://eon-payment-sl-demo-production.up.railway.app/health
+curl https://verifier-production-7dc3.up.railway.app/health
+curl https://bundler-production-b637.up.railway.app/health
+curl https://iovi-api-production.up.railway.app/health
 ```
 
 Live references:
@@ -48,6 +51,8 @@ The docs site is not the API host. Use the endpoint in the table as the base URL
 
 Prefer a UI walkthrough first? Open the [IOVI Playground](https://iovi-payment-sl-playground.vercel.app/) and use the API hub as the exact endpoint companion.
 
+Payment SL has embedded verifier endpoints for the sandbox payment flow. The Generic Verifier is a separate service for normalized base-layer events. If you are minting, transferring, batching, and reading balances in the Payment SL sandbox, stay on `PAYMENT_SL` unless the guide explicitly says `GENERIC_VERIFIER`.
+
 ## First Payment Flow
 
 The public sandbox is stateful, so treat it as a shared demo service. Use these requests as the minimal integration shape, then switch to the rendered reference for exact request and response schemas.
@@ -66,13 +71,22 @@ curl -X POST "$BASE/wallets" \
   -d '{"label":"Alice","vk":"alice_vk","kind":"user"}'
 ```
 
-Continue with:
+For a full copy-pasteable script that creates isolated wallets, registers a hex semantic-layer lane, mints, transfers, batches, verifies, and reads final balances, use the [Agent Smoke Test](/agents/smoke-test/).
+
+The endpoint order is:
 
 ```text
-POST /actions/mint
-POST /operator/batch
-POST /verifier/accept-latest-batch
-GET /balances/{address}
+PAYMENT_SL POST /wallets
+PAYMENT_SL POST /operator/init
+PAYMENT_SL POST /semantic-layers
+PAYMENT_SL POST /actions/mint
+PAYMENT_SL POST /operator/batch
+PAYMENT_SL POST /verifier/accept-latest-batch
+PAYMENT_SL GET  /balances/{address}
+PAYMENT_SL POST /actions/transfer
+PAYMENT_SL POST /operator/batch
+PAYMENT_SL POST /verifier/accept-latest-batch
+PAYMENT_SL GET  /balances/{address}
 ```
 
 Verifier reads are the accepted state surface. Operator state is useful for batching and debugging, but it is not final wallet state.
@@ -84,6 +98,11 @@ Verifier reads are the accepted state surface. Operator state is useful for batc
     title="IOVI Playground"
     description="Try the live sandbox flows in the app, then return here for exact API schemas."
     href="https://iovi-payment-sl-playground.vercel.app/"
+  />
+  <LinkCard
+    title="Agent Smoke Test"
+    description="Run the public Payment SL flow end to end with a unique hex semantic-layer lane."
+    href="/agents/smoke-test/"
   />
   <LinkCard
     title="Payment SL Sandbox"

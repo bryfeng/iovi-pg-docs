@@ -296,6 +296,7 @@
         "operationId": "log_verifier_log_get",
         "parameters": [
           {
+            "description": "Hex semantic-layer identifier. Use the default Payment SL `00010001` or generate an isolated hex lane such as `a9bca654`; non-hex values are rejected by the public sandbox.",
             "example": "00010001",
             "in": "query",
             "name": "sl_id",
@@ -309,7 +310,9 @@
                   "type": "null"
                 }
               ],
-              "title": "Sl Id"
+              "pattern": "^[0-9a-fA-F]+$",
+              "title": "Sl Id",
+              "type": "string"
             }
           }
         ],
@@ -355,16 +358,19 @@
         "operationId": "state_verifier_state_get",
         "parameters": [
           {
+            "description": "Hex semantic-layer identifier. Use the default Payment SL `00010001` or generate an isolated hex lane such as `a9bca654`; non-hex values are rejected by the public sandbox.",
             "example": "00010001",
             "in": "query",
             "name": "sl_id",
             "required": true,
             "schema": {
+              "pattern": "^[0-9a-fA-F]+$",
               "title": "Sl Id",
               "type": "string"
             }
           },
           {
+            "description": "Semantic-layer version. The public examples use four hex digits such as `0001`.",
             "example": "0001",
             "in": "query",
             "name": "version",

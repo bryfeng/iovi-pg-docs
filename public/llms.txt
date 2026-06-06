@@ -10,6 +10,7 @@ Primary task pages:
 - /api/
 - /api/payment-sl/
 - /agents/agent-quickstart/
+- /agents/smoke-test/
 - /agents/task-recipes/
 - /concepts/mental-model/
 - /concepts/utxo-data-bus/
@@ -30,19 +31,32 @@ VERIFIER=https://verifier-production-7dc3.up.railway.app
 BUNDLER_MARKETPLACE=https://bundler-production-b637.up.railway.app
 BASE_LAYER=https://iovi-api-production.up.railway.app
 
+Service ownership:
+PAYMENT_SL owns wallet registry, semantic-layer registry, actions, operator batching, devnet submission, and embedded sandbox verifier reads.
+VERIFIER owns generic normalized base-layer event ingestion and accepted generic semantic-layer state.
+BUNDLER_MARKETPLACE owns bundle wrapping, AMM quote, swap, and settlement payload APIs.
+BASE_LAYER owns wallet address, balance, UTXO, transaction, and transfer-with-Data APIs.
+
+sl_id values must be hex strings. Use 00010001 for the default Payment SL or a unique hex lane such as a9bca654 for tests.
+
 Canonical Payment SL flow:
-POST /operator/init
-POST /wallets
-POST /semantic-layers
-POST /actions/mint
-POST /operator/batch
-POST /verifier/accept-latest-batch
-GET /balances/{address}
-POST /actions/transfer
-POST /operator/batch
-POST /verifier/accept-latest-batch
-GET /verifier/state
-GET /verifier/log
+PAYMENT_SL POST /wallets
+PAYMENT_SL POST /operator/init
+PAYMENT_SL POST /semantic-layers
+PAYMENT_SL POST /actions/mint
+PAYMENT_SL POST /operator/batch
+PAYMENT_SL POST /verifier/accept-latest-batch
+PAYMENT_SL GET /balances/{address}
+PAYMENT_SL POST /actions/transfer
+PAYMENT_SL POST /operator/batch
+PAYMENT_SL POST /verifier/accept-latest-batch
+PAYMENT_SL GET /verifier/state
+PAYMENT_SL GET /verifier/log
+
+Devnet-backed Payment SL flow:
+PAYMENT_SL POST /devnet/submit-latest-batch
+PAYMENT_SL POST /verifier/sync
+Poll until the target batch has verification_source=devnet_utxo.
 
 Do not treat operator state as final. Prefer verifier reads for accepted wallet state.
 Do not invent hosted URLs. Use the public URLs above unless the user supplies their own deployment.
