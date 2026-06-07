@@ -21,12 +21,12 @@ API references:
 
 ## Flow
 
-1. Initialize operator state.
-2. Register wallets.
+1. Register the operator and user wallets.
+2. Initialize operator state for the semantic-layer lane.
 3. Register semantic-layer metadata.
 4. Queue issuer or wallet actions.
 5. Batch pending actions.
-6. Submit or encode the payload.
+6. Optionally inspect or submit the payload.
 7. Verify the payload.
 8. Read verified balances and logs.
 
@@ -35,12 +35,12 @@ API references:
 Use `BASE=https://eon-payment-sl-demo-production.up.railway.app` for the public sandbox.
 
 ```text
+POST /wallets                         # operator wallet
+POST /wallets                         # user wallets
 POST /operator/init
-POST /wallets
 POST /semantic-layers
 POST /actions/mint
 POST /operator/batch
-POST /devnet/encode-payload
 POST /verifier/accept-latest-batch
 GET /balances/{address}
 POST /actions/transfer
@@ -49,6 +49,10 @@ POST /verifier/accept-latest-batch
 GET /verifier/state
 GET /verifier/log
 ```
+
+Create the operator wallet first when you want `POST /operator/init` to bind an `operator_wallet_address`. `GET /health` reports service-level readiness, not whether a fresh `sl_id` lane has already been registered.
+
+After `POST /operator/batch`, use `GET /operator/latest-payload` to inspect the canonical payload for the lane. `POST /devnet/encode-payload` is optional payload framing; it is not required before `POST /verifier/accept-latest-batch`.
 
 ## Important Boundary
 

@@ -2,6 +2,8 @@
 
 Use these docs to operate the current IOVI semantic-layer playground and middleware APIs.
 
+Branding note: IOVI is the current product/docs surface. Some protocol package names, environment variables, and legacy sandbox hostnames still use EON during the rebrand.
+
 Core rule: canonicity is shared, validity is sovereign. EON base-layer UTXOs order and store opaque scalar Data. Semantic layers define and verify their own state transitions.
 
 Safe wording: operator posts UTXO, wallet owns semantic state.
@@ -57,6 +59,10 @@ Devnet-backed Payment SL flow:
 PAYMENT_SL POST /devnet/submit-latest-batch
 PAYMENT_SL POST /verifier/sync
 Poll until the target batch has verification_source=devnet_utxo.
+
+Custom asset lane rule:
+Create the semantic-layer registry record before PAYMENT_SL POST /semantic-layers/{sl_id}/assets.
+GET /health is service-level readiness, not lane-level initialization.
 
 Do not treat operator state as final. Prefer verifier reads for accepted wallet state.
 Do not invent hosted URLs. Use the public URLs above unless the user supplies their own deployment.

@@ -149,8 +149,9 @@ curl https://eon-payment-sl-demo-production.up.railway.app/health
 ## Canonical Flow
 
 ```text
+POST /wallets                         # operator wallet
+POST /wallets                         # user wallets
 POST /operator/init
-POST /wallets
 POST /semantic-layers
 POST /actions/mint
 POST /operator/batch

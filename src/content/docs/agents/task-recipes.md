@@ -22,6 +22,8 @@ Need a runnable end-to-end check first? Use the [Agent Smoke Test](/agents/smoke
 
 Use hex-only `sl_id` values. The default Payment SL lane is `00010001`; isolated test lanes can be generated as eight hex characters.
 
+`GET /health` reports service-level readiness. It does not prove that a fresh `sl_id` lane has been registered, so create the semantic-layer record before lane-scoped asset calls.
+
 ```http
 POST /wallets
 ```
@@ -60,6 +62,14 @@ POST /semantic-layers
   ]
 }
 ```
+
+Register custom assets only after this layer record exists:
+
+```http
+POST /semantic-layers/{sl_id}/assets
+```
+
+Use the same `sl_id` and `version` for `POST /operator/init`, `POST /semantic-layers`, asset registration, actions, batching, and verifier reads.
 
 ## Move Tokens
 
