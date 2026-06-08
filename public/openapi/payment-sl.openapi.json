@@ -2067,34 +2067,6 @@
         ]
       }
     },
-    "/reset": {
-      "post": {
-        "description": "Mutate or create state in the health surface.",
-        "operationId": "reset_reset_post",
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "ok": true,
-                  "status": "success"
-                },
-                "schema": {
-                  "additionalProperties": true,
-                  "title": "Response Reset Reset Post",
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Successful response."
-          }
-        },
-        "summary": "Reset",
-        "tags": [
-          "Health"
-        ]
-      }
-    },
     "/semantic-layers": {
       "get": {
         "description": "Read from the semantic layers surface. Use these responses for status checks, discovery, or accepted-state reads.",

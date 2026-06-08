@@ -27,7 +27,6 @@ The key boundary is: the operator transports semantic-layer payloads to base-lay
 GET /
 GET /health
 GET /config
-POST /reset
 ```
 
 ### Operator Lifecycle
@@ -90,7 +89,6 @@ POST /verifier/ingest-event
 GET /
 GET /health
 GET /config
-POST /reset
 POST /operator/init
 GET /operator/state
 POST /wallets
