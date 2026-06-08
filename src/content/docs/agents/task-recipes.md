@@ -105,3 +105,11 @@ POST /swaps/exact-in
 POST /verifier/ingest-event
 GET /verifier/log
 ```
+
+Headless agents should start with asset discovery:
+
+```bash
+iovi marketplace assets --capability amm_asset_movements
+```
+
+Only use assets with `amm_asset_movements` for pool creation, liquidity, or swaps. A registered Payment SL asset is transferable inside Payment SL, but marketplace swaps additionally require bundle-bound pool escrow actions and a marketplace verifier checkpoint for that Payment SL lane.

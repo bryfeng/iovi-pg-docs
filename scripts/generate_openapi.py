@@ -511,6 +511,7 @@ def marketplace_bundler_schema() -> dict[str, Any]:
         "eon_amm",
         "eon_bundler",
         "eon_issuer",
+        "eon_payment",
         "eon_protocol",
         "eon_settlement",
         "eon_verifier",
@@ -519,6 +520,7 @@ def marketplace_bundler_schema() -> dict[str, Any]:
     add_path("eon-marketplace-stack/packages/eon-protocol-schemas")
     add_path("eon-marketplace-stack/packages/eon-verifier")
     add_path("eon-marketplace-stack/packages/eon-issuer-framework")
+    add_path("eon-marketplace-stack/packages/eon-payment-framework")
     add_path("eon-marketplace-stack/packages/eon-settlement-framework")
     add_path("eon-marketplace-stack/packages/eon-amm-framework")
     add_path("eon-marketplace-stack/packages/eon-bundler-engine")
